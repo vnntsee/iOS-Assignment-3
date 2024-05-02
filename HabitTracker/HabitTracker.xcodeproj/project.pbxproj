@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0905862BE07CF5005E38D2 /* HabitTrackerApp.swift */; };
-		DC0905892BE07CF5005E38D2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0905882BE07CF5005E38D2 /* ContentView.swift */; };
+		DC0905892BE07CF5005E38D2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0905882BE07CF5005E38D2 /* HomeView.swift */; };
 		DC09058B2BE07CF7005E38D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC09058A2BE07CF7005E38D2 /* Assets.xcassets */; };
 		DC09058E2BE07CF7005E38D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC09058D2BE07CF7005E38D2 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		DC0905832BE07CF4005E38D2 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0905862BE07CF5005E38D2 /* HabitTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerApp.swift; sourceTree = "<group>"; };
-		DC0905882BE07CF5005E38D2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DC0905882BE07CF5005E38D2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DC09058A2BE07CF7005E38D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC09058D2BE07CF7005E38D2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				DC0905862BE07CF5005E38D2 /* HabitTrackerApp.swift */,
-				DC0905882BE07CF5005E38D2 /* ContentView.swift */,
+				DC0905882BE07CF5005E38D2 /* HomeView.swift */,
 				DC09058A2BE07CF7005E38D2 /* Assets.xcassets */,
 				DC09058C2BE07CF7005E38D2 /* Preview Content */,
 			);
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC0905892BE07CF5005E38D2 /* ContentView.swift in Sources */,
+				DC0905892BE07CF5005E38D2 /* HomeView.swift in Sources */,
 				DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
