@@ -5,6 +5,7 @@
 //  Created by Vannesa The on 30/4/2024.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,5 +14,6 @@ struct HabitTrackerApp: App {
         WindowGroup {
             HomeView()
         }
+     //   .modelContainer(for: User.self)
     }
 }
