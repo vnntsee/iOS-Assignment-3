@@ -15,7 +15,7 @@ struct LeaderboardView: View {
     
     //DELETE: Sample data for preview
     @State var sampleUsers: [User] = [User(name: "Jane Doe", points: 5000, ranking: 1), User(name: "John Doe", points: 4300, ranking: 2), User(name: "Jack Jones", points: 1504, ranking: 3), User(name: "Joe Roberts", points: 1100, ranking: 4)]
- 
+    @State var currUser: User = User(name: "John Doe", points: 4300, ranking: 2)
 
     var body: some View {
         ZStack {
@@ -23,6 +23,7 @@ struct LeaderboardView: View {
                 .ignoresSafeArea(.all)
             VStack {
                 leaderboardTitle
+                currentUserRanking
                 ScrollView {
                     userRankingRows
                 }
@@ -56,6 +57,7 @@ struct LeaderboardView: View {
         Text("Leaderboard")
             .font(.title)
             .fontWeight(.bold)
+            .padding()
     }
     
     var rankingStar: some View {
@@ -70,6 +72,30 @@ struct LeaderboardView: View {
             .resizable()
             .scaledToFit()
             .padding(5)
+    }
+    
+    var currentUserRanking: some View {
+        HStack {
+            ZStack {
+                Image(systemName: "star.fill")
+                    .resizable()
+                    .frame(width: 90, height: 90)
+                    .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.white)))
+                Text("\(currUser.ranking)")
+            }
+            Spacer()
+            VStack {
+                profileImage
+                    .frame(width: 120)
+                Text(currUser.name)
+            }
+            Spacer()
+            Text("\(currUser.points)")
+        }
+        .font(.title)
+        .padding()
+        .background(Color(UIColor(named: "PastelYellow") ?? UIColor(Color.orange)))
+        .frame(width: .infinity)
     }
     
     var userRankingRows: some View {

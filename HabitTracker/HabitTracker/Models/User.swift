@@ -16,9 +16,11 @@ class User: Identifiable {
     var ranking: Int
     var longestStreak: Int
     var profilePhoto: Image
+    //@Relationship with cascade delete rule allows for all habits associated with a user to be deleted when they are.
+    @Relationship(deleteRule: .cascade) var habits = [Habit]() //Calls default initialiser.
     
     //NOTE: Initialise ranking to last position.
-    init(name: String = "", points: Int = 0, ranking: Int = -1, longestStreak: Int = 0, profilePhoto: Image = Image("")) {
+    init(name: String = "", points: Int = 0, ranking: Int = -1, longestStreak: Int = 0, profilePhoto: Image = Image("DefaultProfile")) {
         self.name = name
         self.points = points
         self.ranking = ranking

@@ -22,6 +22,13 @@ struct HomeView: View {
                             .font(.title)
                     }
                 )
+                NavigationLink (
+                    destination: TodayView(),
+                    label: {
+                        Text("Today's Habits")
+                            .font(.title)
+                    }
+                )
             }
         }
         .ignoresSafeArea()
