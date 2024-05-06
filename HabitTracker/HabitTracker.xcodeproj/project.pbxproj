@@ -16,6 +16,9 @@
 		DC09058B2BE07CF7005E38D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC09058A2BE07CF7005E38D2 /* Assets.xcassets */; };
 		DC09058E2BE07CF7005E38D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC09058D2BE07CF7005E38D2 /* Preview Assets.xcassets */; };
 		DC7A622F2BE8FF3A00F32276 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A622E2BE8FF3A00F32276 /* ProfileView.swift */; };
+		DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62302BE934C100F32276 /* AllHabitsView.swift */; };
+		DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62322BE936A900F32276 /* TabBarView.swift */; };
+		DC7A62362BE936CD00F32276 /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = DC7A62352BE936CD00F32276 /* HexGrid */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,8 @@
 		DC09058A2BE07CF7005E38D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC09058D2BE07CF7005E38D2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DC7A622E2BE8FF3A00F32276 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		DC7A62302BE934C100F32276 /* AllHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsView.swift; sourceTree = "<group>"; };
+		DC7A62322BE936A900F32276 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC7A62362BE936CD00F32276 /* HexGrid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +52,8 @@
 			isa = PBXGroup;
 			children = (
 				DC0905882BE07CF5005E38D2 /* HomeView.swift */,
+				DC7A62322BE936A900F32276 /* TabBarView.swift */,
+				DC7A62302BE934C100F32276 /* AllHabitsView.swift */,
 				DC7A622E2BE8FF3A00F32276 /* ProfileView.swift */,
 				D1CC4F172BE3C24D00B81EE2 /* LeaderboardView.swift */,
 				D1CC4F202BE4FE9100B81EE2 /* TodayView.swift */,
@@ -122,6 +130,9 @@
 			dependencies = (
 			);
 			name = HabitTracker;
+			packageProductDependencies = (
+				DC7A62352BE936CD00F32276 /* HexGrid */,
+			);
 			productName = HabitTracker;
 			productReference = DC0905832BE07CF4005E38D2 /* HabitTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -150,6 +161,9 @@
 				Base,
 			);
 			mainGroup = DC09057A2BE07CF4005E38D2;
+			packageReferences = (
+				DC7A62342BE936CD00F32276 /* XCRemoteSwiftPackageReference "HexGrid" */,
+			);
 			productRefGroup = DC0905842BE07CF4005E38D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -177,10 +191,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1CC4F232BE504C300B81EE2 /* Habit.swift in Sources */,
+				DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */,
 				D1CC4F1A2BE3C83500B81EE2 /* User.swift in Sources */,
 				DC0905892BE07CF5005E38D2 /* HomeView.swift in Sources */,
 				D1CC4F182BE3C24D00B81EE2 /* LeaderboardView.swift in Sources */,
 				D1CC4F212BE4FE9100B81EE2 /* TodayView.swift in Sources */,
+				DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */,
 				DC7A622F2BE8FF3A00F32276 /* ProfileView.swift in Sources */,
 				DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */,
 			);
@@ -388,6 +404,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC7A62342BE936CD00F32276 /* XCRemoteSwiftPackageReference "HexGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ksemianov/HexGrid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC7A62352BE936CD00F32276 /* HexGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC7A62342BE936CD00F32276 /* XCRemoteSwiftPackageReference "HexGrid" */;
+			productName = HexGrid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC09057B2BE07CF4005E38D2 /* Project object */;
 }
