@@ -14,24 +14,8 @@ struct HomeView: View {
                 Image("Logo")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
-                
-                NavigationLink (
-                    destination: LeaderboardView(),
-                    label: {
-                        Text("Leaderboard")
-                            .font(.title)
-                    }
-                )
-                NavigationLink (
-                    destination: TodayView(),
-                    label: {
-                        Text("Today's Habits")
-                            .font(.title)
-                    }
-                )
             }
         }
-        .ignoresSafeArea()
     }
 }
 
