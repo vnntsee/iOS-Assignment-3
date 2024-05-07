@@ -8,31 +8,41 @@
 import SwiftUI
 
 struct EditHabitsView: View {
-    @State private var habitList = ["HabitExample1", "HabitExample2 looooong example", "HabitExample3"]
     
-    @State private var newHabit = ""
+    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2)]
+    
+    @State private var habitName:String = ""
     
     var body: some View {
         ZStack {
-            /*
-            Color.yellow
-                .ignoresSafeArea()
-            */
+            Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+                .ignoresSafeArea(.all)
             VStack {
                 Text("Habits")
                     .font(.largeTitle)
                     .foregroundStyle(.orange)
                     .bold()
                 
+                TextField("Search...", text: $habitName)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .background(.regularMaterial)
+                    .cornerRadius(30)
+                
                 List {
                     ForEach(habitList, id: \.self) { habit in
-                        Text(habit)
+                        Text(habit.name)
                             .padding()
                     }
                 }
                 .font(.system(size: 20))
                 .fontDesign(.monospaced)
                 .foregroundColor(.brown)
+                .listRowBackground(Color.clear)
+                .listStyle(.plain)
+                .cornerRadius(30)
+                
             }
             .padding()
         }
