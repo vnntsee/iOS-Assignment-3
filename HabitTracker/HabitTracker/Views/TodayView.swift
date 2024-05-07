@@ -13,10 +13,11 @@ struct TodayView: View {
     //DELETE
     @State var sampleHabits: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: [0,2], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: [0,1,2,3,4,5,6], priority: 2), Habit(name: "Practice French", daysToComplete: [0,1,2,3,4,5,6], priority: 3)]
     
-    
+    @ObservedObject var habitsVM = TodayHabitsViewModel()
+  
     var body: some View {
         ZStack {
-            Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+            Color(UIColor(named: "PastelYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
                 todayTitle
@@ -40,17 +41,25 @@ struct TodayView: View {
     }
     
     var progressBox: some View {
+        //First rectangle displays colour for all habits having been completed. Second rectangle is white with a starting opacity of 1 which is decreased as habits are completed.
         RoundedRectangle(cornerRadius: 25)
-            .fill(Color.white)
+            .fill(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.yellow)))
             .frame(width: 200, height: 150)
-            .shadow(radius: 10)
+            .shadow(radius: 5)
+            .overlay {
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.white)
+                    .frame(width: 200, height: 150)
+                    .opacity(habitsVM.completionOpacity)
+            }
             .padding()
+        
     }
     
     var habitBox: some View {
         RoundedRectangle(cornerRadius: 15)
             .frame(width: 50, height: 50)
-            .shadow(radius: 7)
+            .shadow(radius: 5)
     }
     
     var habitsListTitle: some View {
@@ -63,17 +72,20 @@ struct TodayView: View {
         }
         .font(.title3)
         .fontWeight(.bold)
-        .padding(.horizontal)
+        .padding()
+        .background(Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4))))
     }
     
     var habitsList: some View {
         ForEach(sampleHabits, id: \.id) { habit in
             HStack {
                 habitBox
-                    .foregroundColor(habit.isCompleted ? .green : .white) //view isn't updated
+                    .foregroundColor(habit.isCompleted ? Color(UIColor(named: "EarthYellow") ?? UIColor(Color.yellow)) : .white)
                     .onTapGesture {
+                        //Updates habit status and progress box colour based on it.
                         habit.isCompleted.toggle()
-                        print("\(habit.name) completion status: \(habit.isCompleted)")
+                        habitsVM.updateHabitsCompleted(habit: habit)
+                        habitsVM.updateHabitsColour()
                     }
                     .padding(.horizontal)
                 Text(habit.name)

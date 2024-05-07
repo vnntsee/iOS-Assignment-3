@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftData
-import SwiftUI
 
 @Model //facilitates persistent storage
 class User: Identifiable {
