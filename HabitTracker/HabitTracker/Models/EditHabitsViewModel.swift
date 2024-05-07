@@ -11,9 +11,13 @@ class EditHabitsViewModel: ObservableObject {
     
     @Published var habitList = []
     
+    @Published var newHabit:String = ""
+    
+    /*
     @Published var habitName: String
     
     init(habitName: String) {
         self.habitName = habitName
     }
+     */
 }
