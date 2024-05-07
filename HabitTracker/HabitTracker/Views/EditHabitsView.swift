@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditHabitsView: View {
-    @State private var habitList = ["Drink water.", "Go to exercise at the gym.", "Read a book.", "Work on assignments."]
+    
+    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2)]
     
     @State private var habitName:String = ""
     
@@ -31,7 +32,7 @@ struct EditHabitsView: View {
                 
                 List {
                     ForEach(habitList, id: \.self) { habit in
-                        Text(habit)
+                        Text(habit.name)
                             .padding()
                     }
                 }
