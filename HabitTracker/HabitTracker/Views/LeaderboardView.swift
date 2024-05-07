@@ -9,9 +9,9 @@ import SwiftData
 import SwiftUI
 
 struct LeaderboardView: View {
-//    @Query var users: [User]
-//    //modelContext tracks all objects and CRUD operations related to them, allowing for them to be saved to the modelContainer(defined in App struct) later on.
-//    @Environment(\.modelContext) var modelContext
+    @Query var users: [User]
+    //modelContext tracks all objects and CRUD operations related to them, allowing for them to be saved to the modelContainer(defined in App struct) later on.
+    @Environment(\.modelContext) var modelContext
     
     //DELETE: Sample data for preview
     @State var sampleUsers: [User] = [User(name: "Jane Doe", points: 5000, ranking: 1), User(name: "John Doe", points: 4300, ranking: 2), User(name: "Jack Jones", points: 1504, ranking: 3), User(name: "Joe Roberts", points: 1100, ranking: 4)]
@@ -122,5 +122,14 @@ struct LeaderboardView: View {
 }
 
 #Preview {
-    LeaderboardView()
+    //Stores temporary data for preview.
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: User.self, configurations: config)
+        
+        return LeaderboardView()
+            .modelContainer(container)
+    } catch {
+        fatalError("Failed to create model container.")
+    }
 }

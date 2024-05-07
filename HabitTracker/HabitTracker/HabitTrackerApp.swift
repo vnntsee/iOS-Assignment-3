@@ -14,6 +14,6 @@ struct HabitTrackerApp: App {
         WindowGroup {
             HomeView()
         }
-     //   .modelContainer(for: User.self)
+        .modelContainer(for: User.self)
     }
 }
