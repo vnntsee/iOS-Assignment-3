@@ -15,15 +15,14 @@ struct HexCell: Identifiable, OffsetCoordinateProviding {
 }
 
 struct AllHabitsView: View {
+    
     var body: some View {
         VStack {
             HStack {
                 Text("All Habits")
                     .font(.largeTitle)
                     .fontWeight(.black)
-                Spacer()
-                Image(systemName: "plus.circle")
-                
+                Spacer()                
             }
             .padding()
             Spacer()
