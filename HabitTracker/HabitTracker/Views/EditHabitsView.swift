@@ -10,9 +10,9 @@ import SwiftData
 
 struct EditHabitsView: View {
     
-    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2)]
+    @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
-    @State private var habitName:String = ""
+    @State private var searchHabit:String = ""
     
     var body: some View {
         ZStack {
@@ -24,7 +24,7 @@ struct EditHabitsView: View {
                     .foregroundStyle(.orange)
                     .bold()
                 
-                TextField("Search...", text: $habitName)
+                TextField("Search...", text: $searchHabit)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .frame(height: 55)
@@ -32,20 +32,21 @@ struct EditHabitsView: View {
                     .cornerRadius(30)
                 
                 List {
-                    ForEach(habitList, id: \.self) { habit in
-                        Text(habit.name)
-                            .padding()
+                    ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
+                        Text("\(habit.name) \n Priority: \(habit.priority)")
+                                .padding()
                     }
                 }
                 .font(.system(size: 20))
                 .fontDesign(.monospaced)
                 .foregroundColor(.brown)
-                .listRowBackground(Color.clear)
+                .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
                 
             }
             .padding()
+            
         }
     }
 }
