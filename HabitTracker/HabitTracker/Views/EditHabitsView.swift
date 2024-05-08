@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditHabitsView: View {
     
-    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2)]
+    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: [0,2], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: [0,1,2,3,4,5,6], priority: 2), Habit(name: "Practice French", daysToComplete: [0,1,2,3,4,5,6], priority: 3)]
     
     @State private var habitName:String = ""
     
@@ -39,7 +39,7 @@ struct EditHabitsView: View {
                 .font(.system(size: 20))
                 .fontDesign(.monospaced)
                 .foregroundColor(.brown)
-                .listRowBackground(Color.clear)
+                .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
                 
