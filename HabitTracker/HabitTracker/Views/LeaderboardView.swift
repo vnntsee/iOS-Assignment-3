@@ -95,7 +95,7 @@ struct LeaderboardView: View {
         .font(.title)
         .padding()
         .background(Color(UIColor(named: "PastelYellow") ?? UIColor(Color.orange)))
-        .frame(width: .infinity)
+        .frame(maxWidth: .infinity)
     }
     
     var userRankingRows: some View {
