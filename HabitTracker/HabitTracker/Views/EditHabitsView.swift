@@ -9,11 +9,9 @@ import SwiftUI
 
 struct EditHabitsView: View {
     
-    @State var habitList: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: [5,6], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: [0,2], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: [0,1,2,3,4,5,6], priority: 2), Habit(name: "Practice French", daysToComplete: [0,1,2,3,4,5,6], priority: 3)]
-    
-    @State private var habitName:String = ""
-    
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
+    
+    @State private var searchHabit:String = ""
     
     var body: some View {
         ZStack {
@@ -25,7 +23,7 @@ struct EditHabitsView: View {
                     .foregroundStyle(.orange)
                     .bold()
                 
-                TextField("Search...", text: $habitName)
+                TextField("Search...", text: $searchHabit)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .frame(height: 55)
@@ -33,9 +31,9 @@ struct EditHabitsView: View {
                     .cornerRadius(30)
                 
                 List {
-                    ForEach(habitList, id: \.self) { habit in
+                    ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
                         Text(habit.name)
-                            .padding()
+                                .padding()
                     }
                 }
                 .font(.system(size: 20))
