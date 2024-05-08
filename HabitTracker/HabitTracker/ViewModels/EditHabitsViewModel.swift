@@ -15,10 +15,22 @@ class EditHabitsViewModel: ObservableObject {
             Habit(name: "Eat 3 fruits", daysToComplete: [0,1,2,3,4,5,6], priority: 2),
             Habit(name: "Practice French", daysToComplete: [0,1,2,3,4,5,6], priority: 3)
         ]
-
-        func filterHabits(by searchHabit: String) -> [Habit] {
-            guard !searchHabit.isEmpty else { return habitList }
-            return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
+    // some sample habits to get the user started and to have something to show during presentation.
+    func filterHabits(by searchHabit: String) -> [Habit] {
+        guard !searchHabit.isEmpty else { return habitList }
+        return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
+    
+    func priorityRating(for priority: Int) -> String {
+        var priorityName = ""
+        switch priority {
+        case 1:
+            return "Low"
+        case 2:
+            return "Medium"
+        default:
+            return "High"
+        }
+    }
 }
 
