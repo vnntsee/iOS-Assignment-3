@@ -22,6 +22,12 @@ class EditHabitsViewModel: ObservableObject {
         return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
     
+    func deleteHabit(withUUID uuid: UUID) {
+            if let index = habitList.firstIndex(where: { $0.id == uuid.uuidString }) {
+                habitList.remove(at: index)
+            }
+        }
+    
     func priorityRating(for priority: Int) -> String {
         switch priority {
         case 1:
