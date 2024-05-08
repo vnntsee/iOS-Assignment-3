@@ -43,7 +43,6 @@ struct EditHabitsView: View {
                 .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
-                
             }
             .padding()
             
