@@ -21,3 +21,4 @@ class EditHabitsViewModel: ObservableObject {
             return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
 }
+

@@ -122,7 +122,7 @@ struct LeaderboardView: View {
 }
 
 #Preview {
-    //Stores temporary data for preview.
+    //Stores temporary data and SwiftData configuration for preview.
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: User.self, configurations: config)

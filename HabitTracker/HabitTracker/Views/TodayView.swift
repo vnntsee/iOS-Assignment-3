@@ -17,7 +17,7 @@ struct TodayView: View {
   
     var body: some View {
         ZStack {
-            Color(UIColor(named: "PastelYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+            Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
                 todayTitle
@@ -43,7 +43,7 @@ struct TodayView: View {
     var progressBox: some View {
         //First rectangle displays colour for all habits having been completed. Second rectangle is white with a starting opacity of 1 which is decreased as habits are completed.
         RoundedRectangle(cornerRadius: 25)
-            .fill(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.yellow)))
+            .fill(Color(UIColor(named: "EarthYellow") ?? UIColor(Color.yellow)))
             .frame(width: 200, height: 150)
             .shadow(radius: 5)
             .overlay {
@@ -105,6 +105,7 @@ struct TodayView: View {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: User.self, configurations: config)
+        //Adding Habit model to container isn't necessary since it's linked to User through @Relationship.
         
         return TodayView()
             .modelContainer(container)
