@@ -32,7 +32,7 @@ struct EditHabitsView: View {
                 
                 List {
                     ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
-                        Text(habit.name)
+                        Text("\(habit.name) \n Priority: \(habit.priority)")
                                 .padding()
                     }
                 }
@@ -45,6 +45,7 @@ struct EditHabitsView: View {
                 
             }
             .padding()
+            
         }
     }
 }
