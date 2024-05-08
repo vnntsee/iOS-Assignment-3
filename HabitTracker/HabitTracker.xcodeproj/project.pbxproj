@@ -12,8 +12,8 @@
 		D1CC4F212BE4FE9100B81EE2 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CC4F202BE4FE9100B81EE2 /* TodayView.swift */; };
 		D1CC4F232BE504C300B81EE2 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CC4F222BE504C300B81EE2 /* Habit.swift */; };
 		D1DA75F22BE9B9350053A234 /* TodayHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA75F12BE9B9350053A234 /* TodayHabitsViewModel.swift */; };
+		D9AD3F712BEB10C80049B8F2 /* EditHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD3F702BEB10C80049B8F2 /* EditHabitsViewModel.swift */; };
 		D9E52EEC2BE9AE94001F7A65 /* EditHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E52EEB2BE9AE94001F7A65 /* EditHabitsView.swift */; };
-		D9E52EEE2BE9B01E001F7A65 /* EditHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E52EED2BE9B01E001F7A65 /* EditHabitsViewModel.swift */; };
 		DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0905862BE07CF5005E38D2 /* HabitTrackerApp.swift */; };
 		DC0905892BE07CF5005E38D2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0905882BE07CF5005E38D2 /* HomeView.swift */; };
 		DC09058B2BE07CF7005E38D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC09058A2BE07CF7005E38D2 /* Assets.xcassets */; };
@@ -30,8 +30,8 @@
 		D1CC4F202BE4FE9100B81EE2 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		D1CC4F222BE504C300B81EE2 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		D1DA75F12BE9B9350053A234 /* TodayHabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodayHabitsViewModel.swift; path = HabitTracker/TodayHabitsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		D9AD3F702BEB10C80049B8F2 /* EditHabitsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditHabitsViewModel.swift; sourceTree = "<group>"; };
 		D9E52EEB2BE9AE94001F7A65 /* EditHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitsView.swift; sourceTree = "<group>"; };
-		D9E52EED2BE9B01E001F7A65 /* EditHabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditHabitsViewModel.swift; path = HabitTracker/Models/EditHabitsViewModel.swift; sourceTree = SOURCE_ROOT; };
 		DC0905832BE07CF4005E38D2 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0905862BE07CF5005E38D2 /* HabitTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerApp.swift; sourceTree = "<group>"; };
 		DC0905882BE07CF5005E38D2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		D1CC4F1D2BE3CBFB00B81EE2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D9E52EED2BE9B01E001F7A65 /* EditHabitsViewModel.swift */,
+				D9AD3F702BEB10C80049B8F2 /* EditHabitsViewModel.swift */,
 				D1DA75F12BE9B9350053A234 /* TodayHabitsViewModel.swift */,
 			);
 			path = ViewModels;
@@ -200,10 +200,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1CC4F232BE504C300B81EE2 /* Habit.swift in Sources */,
+				D9AD3F712BEB10C80049B8F2 /* EditHabitsViewModel.swift in Sources */,
 				DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */,
 				D1CC4F1A2BE3C83500B81EE2 /* User.swift in Sources */,
 				DC0905892BE07CF5005E38D2 /* HomeView.swift in Sources */,
-				D9E52EEE2BE9B01E001F7A65 /* EditHabitsViewModel.swift in Sources */,
 				D1CC4F182BE3C24D00B81EE2 /* LeaderboardView.swift in Sources */,
 				D9E52EEC2BE9AE94001F7A65 /* EditHabitsView.swift in Sources */,
 				D1CC4F212BE4FE9100B81EE2 /* TodayView.swift in Sources */,

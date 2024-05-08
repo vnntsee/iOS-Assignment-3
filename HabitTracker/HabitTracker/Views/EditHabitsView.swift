@@ -13,6 +13,8 @@ struct EditHabitsView: View {
     
     @State private var habitName:String = ""
     
+    @ObservedObject var editHabitsVM = EditHabitsViewModel()
+    
     var body: some View {
         ZStack {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
