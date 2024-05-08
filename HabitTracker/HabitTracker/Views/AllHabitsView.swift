@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HexGrid
+import SwiftData
 
 struct HexCell: Identifiable, OffsetCoordinateProviding {
     var id: Int { offsetCoordinate.hashValue }
@@ -83,5 +84,13 @@ struct AllHabitsView: View {
 }
 
 #Preview {
-    AllHabitsView()
+    //Stores temporary data for preview.
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: User.self, configurations: config)
+        return AllHabitsView()
+            .modelContainer(container)
+    } catch {
+        fatalError("Failed to create model container.")
+    }
 }
