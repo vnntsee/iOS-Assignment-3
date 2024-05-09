@@ -12,7 +12,7 @@ struct SignUpView: View {
     @Environment(\.modelContext) var modelContext
     @Query var user: [User]
     
-    @State private var name: String = ""
+    @State private var username: String = ""
     @State private var password: String = ""
     @State private var incorrectDetails: Bool = false
     @State private var signedUp: Bool = false
@@ -26,7 +26,7 @@ struct SignUpView: View {
                 Spacer()
                 habitTrackerLogo
                 Spacer()
-                nameField
+                usernameField
                 passwordField
                 signUpResultField
                 signUpButton
@@ -52,13 +52,13 @@ struct SignUpView: View {
             .padding()
     }
 
-    var nameField: some View {
+    var usernameField: some View {
         VStack {
-            Text("Enter your name")
+            Text("Choose a username")
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Enter your name", text: $name)
+            TextField("Enter username here", text: $username)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -77,7 +77,7 @@ struct SignUpView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Choose a password", text: $password)
+            TextField("Enter password here", text: $password)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -94,7 +94,7 @@ struct SignUpView: View {
         //Toggles between being a sign up button and a login button, the latter being displayed when user info has been entered and validated with the sign up button.
         Button {
             if signedUp {
-                
+
             }
             else {
                 validateUserDetails()
@@ -113,6 +113,7 @@ struct SignUpView: View {
         }
     }
     
+    
     var incorrectDetailsView: some View {
         HStack {
             Image(systemName: "exclamationmark.triangle.fill")
@@ -130,7 +131,7 @@ struct SignUpView: View {
     
     var successfulSignUpView: some View {
         VStack {
-            Text("Welcome to HabitTracker user's name!")
+            Text("Welcome to HabitTracker \(username)!")
             HStack {
                 Text("Log into your account")
                 Image(systemName: "arrow.down")
@@ -158,17 +159,24 @@ struct SignUpView: View {
     
     func validateUserDetails() {
         //Displays error message if name and password fields are left blank.
-        guard !name.isEmpty && !password.isEmpty else {
+        guard !username.isEmpty && !password.isEmpty else {
             withAnimation {
                 incorrectDetails = true
             }
             return
         }
-        //Displays signed up message if details are valid.
+        //Displays signed up message and adds user to database if details are valid.
         withAnimation {
             incorrectDetails = false
             signedUp = true
+            addUser()
         }
+    }
+    
+    func addUser() {
+        //Adds user to the database.
+        let newUser = User(name: username, password: password)
+        modelContext.insert(newUser)
     }
 }
 

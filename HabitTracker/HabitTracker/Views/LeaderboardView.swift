@@ -22,8 +22,11 @@ struct LeaderboardView: View {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
+                Button("Add Sample User", action: addSampleUsers) //REMOVE
+                Button("Delete Users", action: removeUsers) //REMOVE
                 leaderboardTitle
                 currentUserRanking
+                Spacer()
                 ScrollView {
                     userRankingRows
                 }
@@ -32,32 +35,29 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .fontWeight(.bold)
         }
-      //  Button("Add Sample User", action: addSampleUsers) //REMOVE
-      //  Button("Delete Users", action: removeUsers) //REMOVE
     }
     
-//    //REMOVE
-//    func addSampleUsers() {
-//        let user1 = User(name: "Jane", points: 5000, ranking: 1)
-//        let user2 = User(name: "John", points: 4300, ranking: 2)
-//        let user3 = User(name: "Jack", points: 1504, ranking: 3)
-//        modelContext.insert(user1)
-//        modelContext.insert(user2)
-//        modelContext.insert(user3)
-//    }
-//    
-//    //REMOVE
-//    func removeUsers() {
-//        for user in users {
-//            modelContext.delete(user)
-//        }
-//    }
+    //REMOVE
+    func addSampleUsers() {
+        let user1 = User(name: "Jane", points: 5000, ranking: 1)
+        let user2 = User(name: "John", points: 4300, ranking: 2)
+        let user3 = User(name: "Jack", points: 1504, ranking: 3)
+        modelContext.insert(user1)
+        modelContext.insert(user2)
+        modelContext.insert(user3)
+    }
+    
+    //REMOVE
+    func removeUsers() {
+        for user in users {
+            modelContext.delete(user)
+        }
+    }
     
     var leaderboardTitle: some View {
         Text("Leaderboard")
             .font(.title)
             .fontWeight(.bold)
-            .padding()
     }
     
     var rankingStar: some View {
@@ -99,7 +99,7 @@ struct LeaderboardView: View {
     }
     
     var userRankingRows: some View {
-        ForEach(sampleUsers) { user in
+        ForEach(users) { user in
             HStack {
                 ZStack {
                     rankingStar

@@ -22,10 +22,18 @@ struct HomeView: View {
                             navigateToTabBarView = true
                         }
                     }
-                // Display the HighScoreView fullscreen when navigateToHighScore is true.
+                // Display the TabBarView fullscreen when navigateToTabBarView is true.
                     .fullScreenCover(isPresented: $navigateToTabBarView) {
                         TabBarView()
                     }
+                
+//                NavigationLink (destination: SignUpView(), label: {
+//                    Text("Sign Up")
+//                })
+//                
+//                NavigationLink (destination: TabBarView(), label: {
+//                    Text("TabBarView")
+//                })
             }
         }
     }
