@@ -9,14 +9,12 @@ import SwiftUI
 import HexGrid
 import SwiftData
 
-struct HexCell: Identifiable, OffsetCoordinateProviding {
-    var id: Int { offsetCoordinate.hashValue }
-    var offsetCoordinate: OffsetCoordinate
-    var colorName: Color
-}
-
 struct AllHabitsView: View {
-    
+    @ObservedObject var allHabitsViewModel = AllHabitsViewModel()
+    let currentMonth = Calendar.current.component(.month, from: Date())
+    let currentYear = Calendar.current.component(.year, from: Date())
+    let monthSymbols = Calendar.current.monthSymbols
+    let weekdaySymbols = Calendar.current.shortWeekdaySymbols
     var body: some View {
         NavigationStack {
             VStack {
@@ -31,14 +29,13 @@ struct AllHabitsView: View {
                         Image(systemName: "plus.circle")
                             .foregroundStyle(.black)
                     }
-
+                    
                 }
                 .padding()
                 Spacer()
                 
-                Text("May")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                // month
+                // weekdays
                 HStack{
                     Text("Mon")
                         .padding(.horizontal, 7)
@@ -55,31 +52,30 @@ struct AllHabitsView: View {
                     Text("Sun")
                         .padding(.horizontal, 7)
                 }
-                let cells = generateCellsForMonth()
-                HexGrid(cells) { cell in
-                    Color(cell.colorName)
-                        .frame(width: 60)
-                }
+                hexagon
                 Spacer()
             }
+            Spacer()
         }
     }
-    func generateCellsForMonth() -> [HexCell] {
-        // Determine the number of weeks in a month
-        let numberOfWeeksInMonth = 4
-        
-        // Create cells for each week
-        var cells: [HexCell] = []
-        for week in 0..<numberOfWeeksInMonth {
-            // Assign colors
-            let color: Color = week % 2 == 0 ? .mediumYellow : .lightYellow
-            
-            // Populate cells array with HexCell instances for each week
-            for day in 0..<7 {
-                cells.append(HexCell(offsetCoordinate: .init(row: week, col: day), colorName: color))
-            }
+    
+    var month: some View {
+        let month = Calendar.current.monthSymbols
+        return Text("\(month)")
+            .font(.title2)
+            .fontWeight(.bold)
+    }
+    var weekdays: some View {
+        let weekdays = Calendar.current.weekdaySymbols
+        return Text("\(weekdays)")
+            .fontWeight(.semibold)
+    }
+    var hexagon: some View {
+        let currentMonthCells = allHabitsViewModel.generateCellsForMonth(year: Calendar.current.component(.year, from: Date()), month: Calendar.current.component(.month, from: Date()))
+        return HexGrid(currentMonthCells) { cell in
+            let color = cell.completionStatus ? Color.mediumYellow : Color.lightYellow
+            return Hexagon().fill(color).frame(width: 60)
         }
-        return cells
     }
 }
 

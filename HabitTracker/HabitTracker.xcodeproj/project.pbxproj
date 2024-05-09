@@ -24,6 +24,7 @@
 		DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62302BE934C100F32276 /* AllHabitsView.swift */; };
 		DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62322BE936A900F32276 /* TabBarView.swift */; };
 		DC7A62362BE936CD00F32276 /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = DC7A62352BE936CD00F32276 /* HexGrid */; };
+		DCB29B742BEB51150065E96B /* AllHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		DC7A622E2BE8FF3A00F32276 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DC7A62302BE934C100F32276 /* AllHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsView.swift; sourceTree = "<group>"; };
 		DC7A62322BE936A900F32276 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				D11EFF0B2BEA8BC900C67CEB /* TodayHabitsViewModel.swift */,
 				D9667E802BEB47F500017156 /* EditHabitsViewModel.swift */,
+				DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				D9E52EEC2BE9AE94001F7A65 /* EditHabitsView.swift in Sources */,
 				D1CC4F212BE4FE9100B81EE2 /* TodayView.swift in Sources */,
 				DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */,
+				DCB29B742BEB51150065E96B /* AllHabitsViewModel.swift in Sources */,
 				D11EFF102BEB175400C67CEB /* LoginView.swift in Sources */,
 				DC7A622F2BE8FF3A00F32276 /* ProfileView.swift in Sources */,
 				DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */,
