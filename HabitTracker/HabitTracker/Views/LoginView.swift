@@ -77,7 +77,7 @@ struct LoginView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Enter password here", text: $password)
+            SecureField("Enter password here", text: $password)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -92,7 +92,7 @@ struct LoginView: View {
     
     var loginButton: some View {
         Button {
-            
+            validateCredentials()
         } label: {
             Text("Log In!")
                 .font(.headline)
@@ -137,6 +137,12 @@ struct LoginView: View {
         for user in users {
             if user.name == username && user.password == password {
                 loggedIn = true
+            }
+        }
+        
+        if !loggedIn {
+            withAnimation {
+                incorrectDetails = true
             }
         }
     }

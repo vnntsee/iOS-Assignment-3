@@ -10,7 +10,7 @@ import SwiftData
 
 struct SignUpView: View {
     @Environment(\.modelContext) var modelContext
-    @Query var user: [User]
+    @Query var users: [User]
     
     @State private var username: String = ""
     @State private var password: String = ""
@@ -29,7 +29,7 @@ struct SignUpView: View {
                 usernameField
                 passwordField
                 signUpResultField
-                signUpButton
+                signUpLoginButton
             }
             .padding(.horizontal)
         }
@@ -77,7 +77,7 @@ struct SignUpView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Enter password here", text: $password)
+            SecureField("Enter password here", text: $password)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -91,28 +91,44 @@ struct SignUpView: View {
     }
     
     var signUpButton: some View {
-        //Toggles between being a sign up button and a login button, the latter being displayed when user info has been entered and validated with the sign up button.
         Button {
-            if signedUp {
-
-            }
-            else {
-                validateUserDetails()
-            }
+            validateUserDetails()
         } label: {
-            Text(signedUp ? "Log In!" : "Sign Up!")
+            Text("Sign Up!")
                 .font(.headline)
-                .foregroundColor(signedUp ? .white : Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
+                .foregroundColor(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
                 .fontWeight(.bold)
                 .padding(.horizontal, 60)
                 .padding(.vertical, 20)
-                .background(signedUp ? Color.green : Color(UIColor(named: "EarthYellow") ?? UIColor(Color.orange)))
+                .background(Color(UIColor(named: "EarthYellow") ?? UIColor(Color.orange)))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(radius: 5)
                 .padding()
         }
     }
     
+    var loginLink: some View {
+        NavigationLink(destination: LoginView(), label: {
+            Text("Log In!")
+                .font(.headline)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .padding(.horizontal, 60)
+                .padding(.vertical, 20)
+                .background(Color.green)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(radius: 5)
+                .padding()
+        })
+    }
+    
+    var signUpLoginButton: some View {
+        //Toggles between being a sign up button and a login button, the latter being displayed when user info has been entered and validated with the sign up button.
+        ZStack {
+            signUpButton.opacity(signedUp ? 0 : 1)
+            loginLink.opacity(signedUp ? 1 : 0)
+        }
+    }
     
     var incorrectDetailsView: some View {
         HStack {
