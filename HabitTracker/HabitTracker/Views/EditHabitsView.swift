@@ -33,8 +33,22 @@ struct EditHabitsView: View {
                 
                 List {
                     ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
-                        Text("\(habit.name) \n Priority: \(habit.priority)")
+                        VStack {
+                            Text("\(habit.name) \nPriority: \(habit.priority) \n\nDays to Complete:\n\(habit.daysToComplete.joined(separator: ", "))")
+                        }
                                 .padding()
+                                .contextMenu(ContextMenu(menuItems: {
+                                    Text("Edit")
+                                    
+                                    Button(action: {
+                                        withAnimation {
+                                            editHabitsVM.deleteHabit(withUUID: UUID(uuidString: habit.id)!)
+                                                    }
+                                                }) {
+                                                    Text("Delete")
+                                                }
+                                    Text("Menu Item 3")
+                                }))
                     }
                 }
                 .font(.system(size: 20))
@@ -44,9 +58,19 @@ struct EditHabitsView: View {
                 .listStyle(.plain)
                 .cornerRadius(30)
                 
+                Button(action: {}, label: {
+                    Text("+ Add New Habit")
+                        .frame(maxWidth: .infinity, maxHeight: 55)
+                        .foregroundColor(.black)
+                        .background(Color.earthYellow)
+                        .font(.title2)
+                        .bold()
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                        .padding()
+                })
+                
             }
             .padding()
-            
         }
     }
 }
