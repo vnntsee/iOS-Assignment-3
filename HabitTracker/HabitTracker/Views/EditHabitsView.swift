@@ -34,7 +34,7 @@ struct EditHabitsView: View {
                 List {
                     ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
                         VStack {
-                            Text("\(habit.name) \nPriority: \(habit.priority) \n\nDays to Complete: \(habit.daysToComplete.joined(separator: ", "))")
+                            Text("\(habit.name) \nPriority: \(habit.priority) \n\nDays to Complete:\n\(habit.daysToComplete.joined(separator: ", "))")
                         }
                                 .padding()
                                 .contextMenu(ContextMenu(menuItems: {
@@ -47,7 +47,7 @@ struct EditHabitsView: View {
                                                 }) {
                                                     Text("Delete")
                                                 }
-                                    /*@START_MENU_TOKEN@*/Text("Menu Item 3")/*@END_MENU_TOKEN@*/
+                                    Text("Menu Item 3")
                                 }))
                     }
                 }
@@ -57,6 +57,17 @@ struct EditHabitsView: View {
                 .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
+                
+                Button(action: {}, label: {
+                    Text("+ Add New Habit")
+                        .frame(maxWidth: .infinity, maxHeight: 55)
+                        .foregroundColor(.black)
+                        .background(Color.earthYellow)
+                        .font(.title2)
+                        .bold()
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                        .padding()
+                })
                 
             }
             .padding()

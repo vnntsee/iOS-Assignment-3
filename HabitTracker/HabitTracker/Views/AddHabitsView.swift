@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddHabitsView: View {
+    
+    @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
     @State var newHabitName = ""
     
@@ -31,7 +34,7 @@ struct AddHabitsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     
-                
+                // where the user enters the name of the habit they want to add
                 TextField("e.g. drink water once every hour.", text: $newHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
@@ -47,6 +50,8 @@ struct AddHabitsView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
+                
+                // a picker that allows the user to choose the habit's priority level, 1 = low, 3 = high
                 Picker(selection: $newPriority, label: Text("Picker")) {
                     Text("Low").tag(1)
                     Text("Medium").tag(2)
@@ -63,8 +68,10 @@ struct AddHabitsView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
+                
+                
                 Spacer()
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: addHabit, label: {
                     Text("Add Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
                         .foregroundColor(.black)
@@ -77,8 +84,21 @@ struct AddHabitsView: View {
             }
         }
     }
+    func addHabit() {
+            let newHabit = Habit(name: newHabitName, priority: newPriority)
+            editHabitsVM.addHabit(newHabit)
+        }
 }
 
 #Preview {
-    AddHabitsView()
+    //Stores temporary data for preview.
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: User.self, configurations: config)
+        
+        return AddHabitsView()
+            .modelContainer(container)
+    } catch {
+        fatalError("Failed to create model container.")
+    }
 }

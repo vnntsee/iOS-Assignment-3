@@ -28,6 +28,10 @@ class EditHabitsViewModel: ObservableObject {
             }
         }
     
+    func addHabit(_ habit: Habit) {
+        habitList.append(habit)
+    }
+    
     func priorityRating(for priority: Int) -> String {
         switch priority {
         case 1:
