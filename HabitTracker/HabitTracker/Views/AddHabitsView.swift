@@ -16,6 +16,12 @@ struct AddHabitsView: View {
     
     @State var newPriority: Int = 2
     
+    @State private var daysSelected: Set<String> = []
+    
+    @State var habitAddedAlert: Bool = false
+    
+    let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+    
     var body: some View {
         ZStack {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
@@ -68,6 +74,30 @@ struct AddHabitsView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
+                List(days, id: \.self) { day in
+                    Button(action: {
+                        if daysSelected.contains(day) {
+                            daysSelected.remove(day)
+                        } else {
+                            daysSelected.insert(day)
+                        }
+                    }) {
+                        HStack {
+                            Text(day)
+                            Spacer()
+                            if daysSelected.contains(day) {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.orange)
+                                    .bold()
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: 200, maxHeight: 200)
+                .listStyle(.plain)
+                .cornerRadius(20)
+                .padding(.horizontal)
+                .fontDesign(.monospaced)
                 
                 
                 Spacer()
@@ -81,12 +111,25 @@ struct AddHabitsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         .padding()
                 })
+                
+                .alert(isPresented: $habitAddedAlert) {
+                            Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
+                        }
+                
             }
         }
     }
     func addHabit() {
-            let newHabit = Habit(name: newHabitName, priority: newPriority)
-            editHabitsVM.addHabit(newHabit)
+            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority)
+        
+        editHabitsVM.addHabit(newHabit)
+                
+        daysSelected = []
+        newHabitName = ""
+        newPriority = 2
+        
+        // show habit added alert
+        habitAddedAlert = true
         }
 }
 

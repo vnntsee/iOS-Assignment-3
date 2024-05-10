@@ -9,6 +9,8 @@ import Foundation
 
 class EditHabitsViewModel: ObservableObject {
     
+    @Published var addHabitsPressed = false
+    
     @Published var habitList: [Habit] = [
             Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2),
             Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1),
