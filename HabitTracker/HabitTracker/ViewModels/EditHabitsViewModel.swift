@@ -12,11 +12,10 @@ class EditHabitsViewModel: ObservableObject {
     @Published var addHabitsPressed = false
     
     @Published var habitList: [Habit] = [
-            Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2),
-            Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1),
-            Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2),
-            Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3),
-            Habit(name: "Read a book for an hour", daysToComplete: ["Tue", "Thur"], priority: 1)
+        Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2, dateCreated: .now, isCompleted: false),
+            Habit(name: "Study for 2 hrs", daysToComplete: ["Mon","Tue"], priority: 1, dateCreated: .now, isCompleted: false),
+            Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2, dateCreated: .now, isCompleted: false),
+            Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3, dateCreated: .now, isCompleted: false)
         ]
     // some sample habits to get the user started and to have something to show during presentation.
     func filterHabits(by searchHabit: String) -> [Habit] {

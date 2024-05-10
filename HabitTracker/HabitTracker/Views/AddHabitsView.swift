@@ -120,7 +120,7 @@ struct AddHabitsView: View {
         }
     }
     func addHabit() {
-            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority)
+            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
         editHabitsVM.addHabit(newHabit)
                 
