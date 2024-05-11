@@ -47,8 +47,8 @@ class AllHabitsViewModel: ObservableObject {
     
     private func getHabitsForMonth(year: Int, month: Int) -> [Habit] {
         let sampleHabits = [
-            Habit(name: "Exercise", daysToComplete: [1, 3, 5], priority: 1, dateCreated: Date(), isCompleted: true),
-            Habit(name: "Read", daysToComplete: [2, 4, 6], priority: 2, dateCreated: Date(), isCompleted: false)
+            Habit(name: "Exercise", daysToComplete: ["Tue", "Wed", "Sat"], priority: 1, dateCreated: Date(), isCompleted: true),
+            Habit(name: "Read", daysToComplete: ["Tue", "Monday", "Sun"], priority: 2, dateCreated: Date(), isCompleted: false)
         ]
         return sampleHabits
     }

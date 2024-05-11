@@ -34,8 +34,9 @@ struct AllHabitsView: View {
                 .padding()
                 Spacer()
                 
-                // month
-                // weekdays
+                Text("May")
+                    .font(.title)
+                    .fontWeight(.black)
                 HStack{
                     Text("Mon")
                         .padding(.horizontal, 7)
@@ -59,17 +60,17 @@ struct AllHabitsView: View {
         }
     }
     
-    var month: some View {
-        let month = Calendar.current.monthSymbols
-        return Text("\(month)")
-            .font(.title2)
-            .fontWeight(.bold)
-    }
-    var weekdays: some View {
-        let weekdays = Calendar.current.weekdaySymbols
-        return Text("\(weekdays)")
-            .fontWeight(.semibold)
-    }
+//    var month: some View {
+//        let month = Calendar.current.monthSymbols
+//        return Text("\(month)")
+//            .font(.title2)
+//            .fontWeight(.bold)
+//    }
+//    var weekdays: some View {
+//        let weekdays = Calendar.current.weekdaySymbols
+//        return Text("\(weekdays)")
+//            .fontWeight(.semibold)
+//    }
     var hexagon: some View {
         let currentMonthCells = allHabitsViewModel.generateCellsForMonth(year: Calendar.current.component(.year, from: Date()), month: Calendar.current.component(.month, from: Date()))
         return HexGrid(currentMonthCells) { cell in
