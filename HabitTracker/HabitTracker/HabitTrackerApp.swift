@@ -12,7 +12,7 @@ import SwiftUI
 struct HabitTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            LogoView()
         }
         .modelContainer(for: User.self)
     }

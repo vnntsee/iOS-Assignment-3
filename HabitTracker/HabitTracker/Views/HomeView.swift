@@ -12,23 +12,19 @@ struct HomeView: View {
     @State private var navigateToTabBarView = false
     var body: some View {
         NavigationStack {
-            VStack {
-                Image("Logo")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+            ZStack{
+                Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
+                    .ignoresSafeArea(.all)
                 HStack {
                     loginLink
                     signUpLink
                 }
-                //REMOVE
-                NavigationLink (destination: TabBarView(), label: {
-                    Text("TabBarView")
-                })
             }
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .font(.title2)
             .fontWeight(.bold)
         }
+            }
     }
     
     var loginLink: some View {
@@ -58,7 +54,6 @@ struct HomeView: View {
         })
         .padding(.leading)
     }
-}
 
 #Preview {
     //Stores temporary data for preview.
