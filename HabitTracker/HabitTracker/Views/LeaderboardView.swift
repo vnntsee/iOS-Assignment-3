@@ -9,11 +9,13 @@ import SwiftData
 import SwiftUI
 
 struct LeaderboardView: View {
-    @Query var users: [User]
+    @Query(sort: [SortDescriptor(\User.points, order: .reverse)]) var users: [User]
     //modelContext tracks all objects and CRUD operations related to them, allowing for them to be saved to the modelContainer(defined in App struct) later on.
     @Environment(\.modelContext) var modelContext
     
-    //DELETE: Sample data for preview
+    @ObservedObject var usersVM = UsersViewModel()
+    
+    //Sample data for preview
     @State var sampleUsers: [User] = [User(name: "Jane Doe", points: 5000, ranking: 1), User(name: "John Doe", points: 4300, ranking: 2), User(name: "Jack Jones", points: 1504, ranking: 3), User(name: "Joe Roberts", points: 1100, ranking: 4)]
     @State var currUser: User = User(name: "John Doe", points: 4300, ranking: 2)
 
@@ -22,8 +24,14 @@ struct LeaderboardView: View {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
+                Button("Add Sample User", action: addSampleUsers) //REMOVE
+                Button("Delete Users", action: removeUsers) //REMOVE
+                Button("Increase John's Score", action: increaseUserScore) //REMOVE
+                Button("Decrease John's Score", action: decreaseUserScore) //REMOVE
+                Button("Update ranking", action: updateRanking) //REMOVE
                 leaderboardTitle
                 currentUserRanking
+                Spacer()
                 ScrollView {
                     userRankingRows
                 }
@@ -32,32 +40,57 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .fontWeight(.bold)
         }
-      //  Button("Add Sample User", action: addSampleUsers) //REMOVE
-      //  Button("Delete Users", action: removeUsers) //REMOVE
+        
     }
     
-//    //REMOVE
-//    func addSampleUsers() {
-//        let user1 = User(name: "Jane", points: 5000, ranking: 1)
-//        let user2 = User(name: "John", points: 4300, ranking: 2)
-//        let user3 = User(name: "Jack", points: 1504, ranking: 3)
-//        modelContext.insert(user1)
-//        modelContext.insert(user2)
-//        modelContext.insert(user3)
-//    }
-//    
-//    //REMOVE
-//    func removeUsers() {
-//        for user in users {
-//            modelContext.delete(user)
-//        }
-//    }
+    //__________TESTING DATABASE_____________//
+    
+    //REMOVE
+    func addSampleUsers() {
+        let user1 = User(name: "Jane", points: 5000, ranking: 0)
+        let user2 = User(name: "John", points: 4300, ranking: 0)
+        let user3 = User(name: "Jack", points: 1504, ranking: 0)
+        modelContext.insert(user1)
+        modelContext.insert(user2)
+        modelContext.insert(user3)
+    }
+    
+    //REMOVE
+    func removeUsers() {
+        for user in users {
+            modelContext.delete(user)
+        }
+    }
+    
+    //REMOVE
+    func increaseUserScore() {
+        for user in users {
+            if user.name == "John" {
+                user.points += 1000
+            }
+        }
+    }
+    
+    //REMOVE
+    func decreaseUserScore() {
+        for user in users {
+            if user.name == "John" {
+                user.points -= 1000
+            }
+        }
+    }
+    
+    //REMOVE
+    func updateRanking() {
+        usersVM.updateUsersRanking(users: users)
+    }
+    
+    //_______________________________________//
     
     var leaderboardTitle: some View {
         Text("Leaderboard")
             .font(.title)
             .fontWeight(.bold)
-            .padding()
     }
     
     var rankingStar: some View {
@@ -99,7 +132,7 @@ struct LeaderboardView: View {
     }
     
     var userRankingRows: some View {
-        ForEach(sampleUsers) { user in
+        ForEach(users) { user in
             HStack {
                 ZStack {
                     rankingStar

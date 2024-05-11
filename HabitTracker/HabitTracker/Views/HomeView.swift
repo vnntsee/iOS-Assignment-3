@@ -16,18 +16,47 @@ struct HomeView: View {
                 Image("Logo")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
-                    .onAppear {
-                        // Start a timer to wait for a short duration before navigating to HighScoreView
-                        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-                            navigateToTabBarView = true
-                        }
-                    }
-                // Display the HighScoreView fullscreen when navigateToHighScore is true.
-                    .fullScreenCover(isPresented: $navigateToTabBarView) {
-                        TabBarView()
-                    }
+                HStack {
+                    loginLink
+                    signUpLink
+                }
+                //REMOVE
+                NavigationLink (destination: TabBarView(), label: {
+                    Text("TabBarView")
+                })
             }
+            .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
+            .font(.title2)
+            .fontWeight(.bold)
         }
+    }
+    
+    var loginLink: some View {
+        NavigationLink (destination: LoginView(), label: {
+            ZStack {
+                Image(systemName: "hexagon.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 120)
+                    .foregroundStyle(Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow)))
+                Text("Log In")
+            }
+        })
+        .padding(.trailing)
+    }
+    
+    var signUpLink: some View {
+        NavigationLink (destination: SignUpView(), label: {
+            ZStack {
+                Image(systemName: "hexagon.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 120)
+                    .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.orange)))
+                Text("Sign Up")
+            }
+        })
+        .padding(.leading)
     }
 }
 

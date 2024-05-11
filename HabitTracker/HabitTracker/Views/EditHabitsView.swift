@@ -33,32 +33,45 @@ struct EditHabitsView: View {
                 
                 List {
                     ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
-                        VStack {
-                            Text("\(habit.name) \nPriority: \(habit.priority) \n\nDays to Complete:\n\(habit.daysToComplete.joined(separator: ", "))")
+                        VStack(alignment: .leading) {
+                            Text("**\(habit.name)** \n")
+                                .font(.system(size: 25))
+                                .foregroundColor(.earthYellow)
+                            
+                            Text("**Priority:** \(habit.priority)\n")
+                            
+                            Text("**Days to Complete:**")
+                                .foregroundColor(.mediumYellow)
+                            
+                            Text("\(habit.daysToComplete.joined(separator: ", "))")
                         }
-                                .padding()
-                                .contextMenu(ContextMenu(menuItems: {
-                                    Text("Edit")
-                                    
-                                    Button(action: {
-                                        withAnimation {
-                                            editHabitsVM.deleteHabit(withUUID: UUID(uuidString: habit.id)!)
-                                                    }
-                                                }) {
-                                                    Text("Delete")
-                                                }
-                                    Text("Menu Item 3")
-                                }))
+                        .padding()
+                        // where all the buttons for editing the list is located.
+                        .contextMenu(ContextMenu(menuItems: {
+                            Text("Edit")
+                            
+                            // deletes the habit
+                            Button(action: {
+                                withAnimation {
+                                    editHabitsVM.deleteHabit(withUUID: UUID(uuidString: habit.id)!)
+                                }
+                            }) {
+                                Text("Delete")
+                            }
+                            
+                            Text("Menu Item 3")
+                        }))
                     }
                 }
+                // edits the look of the list
                 .font(.system(size: 20))
                 .fontDesign(.monospaced)
-                .foregroundColor(.brown)
                 .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
                 
-                Button(action: {}, label: {
+                // Button that opens the add habit page
+                Button(action: {editHabitsVM.addHabitsPressed = true}, label: {
                     Text("+ Add New Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
                         .foregroundColor(.black)
@@ -69,6 +82,9 @@ struct EditHabitsView: View {
                         .padding()
                 })
                 
+                .sheet(isPresented: $editHabitsVM.addHabitsPressed) {
+                    AddHabitsView()
+                }
             }
             .padding()
         }

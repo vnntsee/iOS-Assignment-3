@@ -11,6 +11,7 @@ import SwiftData
 @Model //facilitates persistent storage
 class User: Identifiable {
     var name: String
+    var password: String
     var points: Int
     var ranking: Int
     var longestStreak: Int
@@ -18,8 +19,9 @@ class User: Identifiable {
     @Relationship(deleteRule: .cascade) var habits = [Habit]() //Calls default initialiser.
     
     //NOTE: Initialise ranking to last position.
-    init(name: String = "", points: Int = 0, ranking: Int = -1, longestStreak: Int = 0) {
+    init(name: String = "", password: String = "", points: Int = 0, ranking: Int = 0, longestStreak: Int = 0) {
         self.name = name
+        self.password = password
         self.points = points
         self.ranking = ranking
         self.longestStreak = longestStreak
