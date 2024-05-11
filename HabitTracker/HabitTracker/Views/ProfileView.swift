@@ -14,7 +14,7 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack {
-            Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+            Color(UIColor(named: "PastelYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
                 Text("\(currUser.name)")

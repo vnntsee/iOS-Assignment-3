@@ -26,6 +26,7 @@
 		DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62302BE934C100F32276 /* AllHabitsView.swift */; };
 		DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7A62322BE936A900F32276 /* TabBarView.swift */; };
 		DC7A62362BE936CD00F32276 /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = DC7A62352BE936CD00F32276 /* HexGrid */; };
+		DCA7A4C62BEF60950058936A /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA7A4C52BEF60950058936A /* LogoView.swift */; };
 		DCB29B742BEB51150065E96B /* AllHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		DC7A622E2BE8FF3A00F32276 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DC7A62302BE934C100F32276 /* AllHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsView.swift; sourceTree = "<group>"; };
 		DC7A62322BE936A900F32276 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		DCA7A4C52BEF60950058936A /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +69,7 @@
 		D1CC4F1B2BE3CBEB00B81EE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DCA7A4C52BEF60950058936A /* LogoView.swift */,
 				DC0905882BE07CF5005E38D2 /* HomeView.swift */,
 				DC7A62322BE936A900F32276 /* TabBarView.swift */,
 				DC7A62302BE934C100F32276 /* AllHabitsView.swift */,
@@ -215,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1CC4F232BE504C300B81EE2 /* Habit.swift in Sources */,
+				DCA7A4C62BEF60950058936A /* LogoView.swift in Sources */,
 				DC7A62332BE936A900F32276 /* TabBarView.swift in Sources */,
 				D1CC4F1A2BE3C83500B81EE2 /* User.swift in Sources */,
 				D9667E832BEB4E3D00017156 /* AddHabitsView.swift in Sources */,

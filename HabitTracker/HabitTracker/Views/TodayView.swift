@@ -43,7 +43,7 @@ struct TodayView: View {
     var progressBox: some View {
         //First rectangle displays colour for all habits having been completed. Second rectangle is white with a starting opacity of 1 which is decreased as habits are completed.
         RoundedRectangle(cornerRadius: 25)
-            .fill(Color(UIColor(named: "EarthYellow") ?? UIColor(Color.yellow)))
+            .fill(Color(UIColor(named: "LigthYellow") ?? UIColor(Color.yellow)))
             .frame(width: 200, height: 150)
             .shadow(radius: 5)
             .overlay {
