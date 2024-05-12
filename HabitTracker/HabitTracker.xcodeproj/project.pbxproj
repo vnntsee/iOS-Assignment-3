@@ -28,6 +28,7 @@
 		DC7A62362BE936CD00F32276 /* HexGrid in Frameworks */ = {isa = PBXBuildFile; productRef = DC7A62352BE936CD00F32276 /* HexGrid */; };
 		DCA7A4C62BEF60950058936A /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA7A4C52BEF60950058936A /* LogoView.swift */; };
 		DCB29B742BEB51150065E96B /* AllHabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */; };
+		DCEFDC332BF0E2C5001980A3 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEFDC322BF0E2C5001980A3 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		DC7A62322BE936A900F32276 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		DCA7A4C52BEF60950058936A /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		DCB29B732BEB51150065E96B /* AllHabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHabitsViewModel.swift; sourceTree = "<group>"; };
+		DCEFDC322BF0E2C5001980A3 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				D1CC4F1B2BE3CBEB00B81EE2 /* Views */,
 				D1DA75F52BEA8A730053A234 /* ViewModels */,
 				D1CC4F1C2BE3CBF300B81EE2 /* Models */,
+				DCEFDC312BF0E29A001980A3 /* Extension */,
 				DC09058A2BE07CF7005E38D2 /* Assets.xcassets */,
 				DC09058C2BE07CF7005E38D2 /* Preview Content */,
 			);
@@ -139,6 +142,14 @@
 				DC09058D2BE07CF7005E38D2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DCEFDC312BF0E29A001980A3 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DCEFDC322BF0E2C5001980A3 /* Date.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +244,7 @@
 				DC7A62312BE934C100F32276 /* AllHabitsView.swift in Sources */,
 				DCB29B742BEB51150065E96B /* AllHabitsViewModel.swift in Sources */,
 				D11EFF102BEB175400C67CEB /* LoginView.swift in Sources */,
+				DCEFDC332BF0E2C5001980A3 /* Date.swift in Sources */,
 				DC7A622F2BE8FF3A00F32276 /* ProfileView.swift in Sources */,
 				DC0905872BE07CF5005E38D2 /* HabitTrackerApp.swift in Sources */,
 			);
