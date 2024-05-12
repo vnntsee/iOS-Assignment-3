@@ -11,14 +11,18 @@ import SwiftData
 struct LogoView: View {
     @State private var navigateToHighScore = false
     var body: some View {
-        VStack {
-            Image("Logo")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-        }
-        .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-                navigateToHighScore = true
+        ZStack {
+            Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+                .ignoresSafeArea(.all)
+            VStack {
+                Image("Logo")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+            }
+            .onAppear {
+                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                    navigateToHighScore = true
+                }
             }
         }
         .fullScreenCover(isPresented: $navigateToHighScore) {
