@@ -9,74 +9,117 @@ import SwiftUI
 import HexGrid
 import SwiftData
 
+struct HexCell: Identifiable, OffsetCoordinateProviding {
+    var id: Int { offsetCoordinate.hashValue }
+    var offsetCoordinate: OffsetCoordinate
+    var colorName: Color
+}
+
 struct AllHabitsView: View {
-    @ObservedObject var allHabitsViewModel = AllHabitsViewModel()
-    let currentMonth = Calendar.current.component(.month, from: Date())
-    let currentYear = Calendar.current.component(.year, from: Date())
-    let monthSymbols = Calendar.current.monthSymbols
-    let weekdaySymbols = Calendar.current.shortWeekdaySymbols
+    @State private var color: Color = .earthYellow
+    @State private var date = Date.now
+    @State private var days: [Date] = []
+//    @State private var years: [Int] = []
+    @State private var selectedMonth = Date.now.monthInt
+//    @State private var selectedYear = Date.now.yearInt
+    let weekdays = Date.weekdays
+    let months = Date.months
+    let columns = Array(repeating: GridItem(.flexible()), count: 7)
+    @Query private var habits: [Habit]
+    @Query(sort: \Habit.name) private var habit: [Habit]
+    @State private var selectedHabit: Habit?
+    @StateObject var allHabitsVM = AllHabitsViewModel()
+
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack {
-                    Text("All Habits")
-                        .font(.largeTitle)
-                        .fontWeight(.black)
-                    Spacer()
-                    NavigationLink {
-                        EditHabitsView()
-                    } label: {
-                        Image(systemName: "plus.circle")
-                            .foregroundStyle(.black)
+            ZStack {
+                Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
+                    .ignoresSafeArea(.all)
+                VStack {
+                    HStack {
+                        Text("All Habits")
+                            .font(.largeTitle)
+                            .fontWeight(.black)
+                        Picker("", selection: $selectedHabit) {
+                            Text("All").tag(nil as Habit?)
+                            ForEach(habit) { habit in
+                                Text(habit.name)
+                                    .tag(habit as Habit?)
+                            }
+                        }
+                        Spacer()
+                    }.toolbar {
+                        NavigationLink {
+                            AddHabitsView()
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(.mediumYellow)
+                        }
+                        NavigationLink {
+                            EditHabitsView()
+                        } label: {
+                            Image(systemName: "list.bullet.circle.fill")
+                                .foregroundStyle(.mediumYellow)
+                        }
                     }
-                    
+                    .padding()
+                    VStack {
+                        HStack {
+//                            Picker("", selection: $selectedYear) {
+//                                ForEach(years, id: \.self) { year in
+//                                    Text(String(year))
+//                                }
+//                            }
+                            Picker("", selection: $selectedMonth) {
+                                ForEach(months.indices, id: \.self) { index in
+                                    Text(months[index])
+                                        .tag(index + 1)
+                                }
+                            }
+                        }
+                        
+                        HStack{
+                            ForEach(weekdays, id: \.self) { weekday in
+                                Text(weekday)
+                                    .frame(maxWidth: .infinity)
+                            }
+                        }
+                        LazyVGrid(columns: columns) {
+                            ForEach(days, id: \.self) {day in
+                                if day.monthInt != date.monthInt {
+                                    Text("")
+                                } else {
+                                    Text(day.formatted(.dateTime.day()))
+                                        .frame(maxWidth: .infinity, minHeight: 40)
+                                        .background {
+                                            Hexagon()
+                                                .foregroundStyle(color)
+                                                .shadow(radius: 2)
+                                        }
+                                }
+                            }
+                        }
+                        .onAppear {
+                            days = date.calendarDisplayDays
+                        }
+                        .onChange(of: date) {
+                            days = date.calendarDisplayDays
+                        }
+                        .onChange (of: selectedMonth) {
+                            updateDate()
+                        }
+                    }
+                    .padding()
+                    Spacer()
                 }
-                .padding()
-                Spacer()
-                
-                Text("May")
-                    .font(.title)
-                    .fontWeight(.black)
-                HStack{
-                    Text("Mon")
-                        .padding(.horizontal, 7)
-                    Text("Tue")
-                        .padding(.horizontal, 7)
-                    Text("Wed")
-                        .padding(.horizontal, 7)
-                    Text("Thurs")
-                        .padding(.horizontal, 7)
-                    Text("Fri")
-                        .padding(.horizontal, 7)
-                    Text("Sat")
-                        .padding(.horizontal, 7)
-                    Text("Sun")
-                        .padding(.horizontal, 7)
-                }
-                hexagon
-                Spacer()
             }
-            Spacer()
         }
     }
-    
-//    var month: some View {
-//        let month = Calendar.current.monthSymbols
-//        return Text("\(month)")
-//            .font(.title2)
-//            .fontWeight(.bold)
-//    }
-//    var weekdays: some View {
-//        let weekdays = Calendar.current.weekdaySymbols
-//        return Text("\(weekdays)")
-//            .fontWeight(.semibold)
-//    }
-    var hexagon: some View {
-        let currentMonthCells = allHabitsViewModel.generateCellsForMonth(year: Calendar.current.component(.year, from: Date()), month: Calendar.current.component(.month, from: Date()))
-        return HexGrid(currentMonthCells) { cell in
-            let color = cell.completionStatus ? Color.mediumYellow : Color.lightYellow
-            return Hexagon().fill(color).frame(width: 60)
-        }
+    func updateDate() {
+        date = Calendar.current.date(from: DateComponents(year: 2024, month: selectedMonth, day: 1))!
+    }
+    func hexagonColor(for habit: Habit) -> Color {
+        return allHabitsVM.completedHabits.contains(habit) ? .earthYellow : .pastelYellow
     }
 }
 
