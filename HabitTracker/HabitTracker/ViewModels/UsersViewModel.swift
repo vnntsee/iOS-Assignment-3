@@ -35,7 +35,24 @@ class UsersViewModel: ObservableObject {
             }
         }
     }
-
+    
+    //Returns user whose username matches the inputted one or a default user object if a use with that username is not found in the database.
+    func getUser(users: [User]) -> User {
+        for user in users {
+            if user.name == currUserStr {
+                return user
+            }
+        }
+        return User(name: "Default")
+    }
+    
+    func logout() {
+        username = ""
+        password = ""
+        incorrectDetails = false
+        loggedIn = false
+        currUserStr = ""
+    }
     
     //Assigns each user a ranking corresponding to its position in the inputted array, since users in the array are sorted in descending order based on their points.
     //Ordering is done using @Query in LeaderboardView.

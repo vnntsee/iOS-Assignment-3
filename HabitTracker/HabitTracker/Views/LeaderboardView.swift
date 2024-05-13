@@ -110,16 +110,16 @@ struct LeaderboardView: View {
                     .resizable()
                     .frame(width: 90, height: 90)
                     .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.white)))
-                Text("\(getUser().ranking)")
+                Text("\(usersVM.getUser(users: users).ranking)")
             }
             Spacer()
             VStack {
                 profileImage
                     .frame(width: 120)
-                Text("\(getUser().name)")
+                Text("\(usersVM.getUser(users: users).name)")
             }
             Spacer()
-            Text("\(getUser().points)")
+            Text("\(usersVM.getUser(users: users).points)")
                 .frame(minWidth: 90)
         }
         .font(.title)
@@ -148,17 +148,6 @@ struct LeaderboardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
     }
-    
-    //Returns user whose username matches the inputted one or a default user object if a use with that username is not found in the database.
-    func getUser() -> User {
-        for user in users {
-            if user.name == usersVM.currUserStr {
-                return user
-            }
-        }
-        return User(name: "Default")
-    }
-    
 }
 
 #Preview {

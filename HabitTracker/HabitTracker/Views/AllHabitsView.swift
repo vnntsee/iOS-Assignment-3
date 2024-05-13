@@ -30,6 +30,7 @@ struct AllHabitsView: View {
                 Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
                     .ignoresSafeArea(.all)
                 VStack {
+                    editAndAddButtons
                     HStack {
                         Text("All Habits")
                             .font(.largeTitle)
@@ -42,21 +43,22 @@ struct AllHabitsView: View {
                             }
                         }
                         Spacer()
-                    }.toolbar {
-                        NavigationLink {
-                            AddHabitsView()
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(.mediumYellow)
-                        }
-                        NavigationLink {
-                            EditHabitsView()
-                        } label: {
-                            Image(systemName: "list.bullet.circle.fill")
-                                .foregroundStyle(.mediumYellow)
-                        }
                     }
                     .padding()
+//                    }.toolbar {
+//                        NavigationLink {
+//                            AddHabitsView()
+//                        } label: {
+//                            Image(systemName: "plus.circle.fill")
+//                                .foregroundStyle(.mediumYellow)
+//                        }
+//                        NavigationLink {
+//                            EditHabitsView()
+//                        } label: {
+//                            Image(systemName: "list.bullet.circle.fill")
+//                                .foregroundStyle(.mediumYellow)
+//                        }
+//                    }
                     VStack {
                         HStack {
                             //                            Picker("", selection: $selectedYear) {
@@ -125,6 +127,31 @@ struct AllHabitsView: View {
     //    func hexagonColor(for habit: Habit) -> Color {
     //        return allHabitsVM.completedHabits.contains(habit) ? .earthYellow : .pastelYellow
     //    }
+    
+    var editAndAddButtons: some View {
+        HStack {
+            Spacer()
+            NavigationLink {
+                AddHabitsView()
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                    .foregroundStyle(.mediumYellow)
+            }
+            NavigationLink {
+                EditHabitsView()
+            } label: {
+                Image(systemName: "list.bullet.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                    .foregroundStyle(.mediumYellow)
+            }
+        }
+        .padding()
+    }
 }
 
 #Preview {
