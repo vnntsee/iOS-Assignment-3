@@ -9,7 +9,6 @@ import SwiftData
 import SwiftUI
 
 struct HomeView: View {
-    @State private var navigateToTabBarView = false
     var body: some View {
         NavigationStack {
             ZStack{
