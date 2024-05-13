@@ -86,8 +86,8 @@ struct AddHabitsView: View {
                             Text(day)
                             Spacer()
                             if daysSelected.contains(day) {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.orange)
+                                Image(systemName: "hexagon.fill")
+                                    .foregroundColor(.yellow)
                                     .bold()
                             }
                         }
@@ -96,7 +96,7 @@ struct AddHabitsView: View {
                 .frame(maxWidth: 200, maxHeight: 200)
                 .listStyle(.plain)
                 .cornerRadius(20)
-                .padding(.horizontal)
+                .padding()
                 .fontDesign(.monospaced)
                 
                 

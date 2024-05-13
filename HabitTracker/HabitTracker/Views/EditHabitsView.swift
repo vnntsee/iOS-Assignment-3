@@ -69,22 +69,6 @@ struct EditHabitsView: View {
                 .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
-                
-                // Button that opens the add habit page
-                Button(action: {editHabitsVM.addHabitsPressed = true}, label: {
-                    Text("+ Add New Habit")
-                        .frame(maxWidth: .infinity, maxHeight: 55)
-                        .foregroundColor(.black)
-                        .background(Color.earthYellow)
-                        .font(.title2)
-                        .bold()
-                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                        .padding()
-                })
-                
-                .sheet(isPresented: $editHabitsVM.addHabitsPressed) {
-                    AddHabitsView()
-                }
             }
             .padding()
         }
