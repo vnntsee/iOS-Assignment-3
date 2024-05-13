@@ -24,6 +24,7 @@ struct EditHabitsView: View {
                     .foregroundStyle(.orange)
                     .bold()
                 
+                // Filters the habits the user wants to look for.
                 TextField("Search...", text: $searchHabit)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -48,6 +49,8 @@ struct EditHabitsView: View {
                         .padding()
                         // where all the buttons for editing the list is located.
                         .contextMenu(ContextMenu(menuItems: {
+                            
+                            /*Button(action: editHabitsVM.editPressed = true)*/
                             Text("Edit")
                             
                             // deletes the habit
@@ -58,8 +61,6 @@ struct EditHabitsView: View {
                             }) {
                                 Text("Delete")
                             }
-                            
-                            Text("Menu Item 3")
                         }))
                     }
                 }
@@ -70,20 +71,8 @@ struct EditHabitsView: View {
                 .listStyle(.plain)
                 .cornerRadius(30)
                 
-                // Button that opens the add habit page
-                Button(action: {editHabitsVM.addHabitsPressed = true}, label: {
-                    Text("+ Add New Habit")
-                        .frame(maxWidth: .infinity, maxHeight: 55)
-                        .foregroundColor(.black)
-                        .background(Color.earthYellow)
-                        .font(.title2)
-                        .bold()
-                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                        .padding()
-                })
-                
-                .sheet(isPresented: $editHabitsVM.addHabitsPressed) {
-                    AddHabitsView()
+                .sheet(isPresented: $editHabitsVM.editPressed) {
+                    ModifyHabitView()
                 }
             }
             .padding()

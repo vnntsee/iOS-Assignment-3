@@ -1,15 +1,14 @@
 //
-//  AddHabitsView.swift
+//  ModifyHabitView.swift
 //  HabitTracker
 //
-//  Created by Katelyn Nguyen on 8/5/2024.
+//  Created by Katelyn Nguyen on 13/5/2024.
 //
 
 import SwiftUI
 import SwiftData
 
-struct AddHabitsView: View {
-    
+struct ModifyHabitView: View {
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
     @State var newHabitName = ""
@@ -18,7 +17,7 @@ struct AddHabitsView: View {
     
     @State private var daysSelected: Set<String> = []
     
-    @State var habitAddedAlert: Bool = false
+    @State var habitUpdatedAlert: Bool = false
     
     let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
     
@@ -28,20 +27,20 @@ struct AddHabitsView: View {
                 .ignoresSafeArea(.all)
             
             VStack {
-                Text("Add New Habit")
+                Text("Edit Habit")
                     .font(.largeTitle)
                     .foregroundStyle(.orange)
                     .bold()
                     .padding(20)
                 
-                Text("Enter the name of your habit:")
+                Text("Update the name of your habit:")
                     .font(.title3)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-                    
+                
                 // where the user enters the name of the habit they want to add
-                TextField("e.g. drink water once every hour.", text: $newHabitName)
+                TextField("", text: $newHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -49,7 +48,7 @@ struct AddHabitsView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 
-                Text("Select your habit's priority:")
+                Text("Update your habit's priority:")
                     .font(.title3)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -101,8 +100,8 @@ struct AddHabitsView: View {
                 
                 
                 Spacer()
-                Button(action: addHabit, label: {
-                    Text("Add Habit")
+                Button(action: editHabit, label: {
+                    Text("Update Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
                         .foregroundColor(.black)
                         .background(Color.earthYellow)
@@ -112,25 +111,18 @@ struct AddHabitsView: View {
                         .padding()
                 })
                 
-                .alert(isPresented: $habitAddedAlert) {
-                            Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
-                        }
-                
+                .alert(isPresented: $habitUpdatedAlert) {
+                    Alert(title: Text("Habit Updated"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
+                }
             }
         }
     }
-    func addHabit() {
-            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+    func editHabit() {
+        let modifiedHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
-        editHabitsVM.addHabit(newHabit)
-                
-        daysSelected = []
-        newHabitName = ""
-        newPriority = 2
-        
-        // show habit added alert
-        habitAddedAlert = true
-        }
+        // show habit updated alert
+        habitUpdatedAlert = true
+    }
 }
 
 #Preview {
@@ -139,7 +131,7 @@ struct AddHabitsView: View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: User.self, configurations: config)
         
-        return AddHabitsView()
+        return ModifyHabitView()
             .modelContainer(container)
     } catch {
         fatalError("Failed to create model container.")
