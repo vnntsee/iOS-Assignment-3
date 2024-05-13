@@ -12,10 +12,7 @@ struct SignUpView: View {
     @Environment(\.modelContext) var modelContext
     @Query var users: [User]
     
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var incorrectDetails: Bool = false
-    @State private var signedUp: Bool = false
+    @ObservedObject var signUpVM = SignUpViewModel()
     
     var body: some View {
         ZStack {
@@ -58,7 +55,7 @@ struct SignUpView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Enter username here", text: $username)
+            TextField("Enter username here", text: $signUpVM.username)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -66,7 +63,7 @@ struct SignUpView: View {
         }
         .onTapGesture { //Removes incorrect details message from view when name field is selected
             withAnimation {
-                incorrectDetails = false
+                signUpVM.incorrectDetails = false
             }
         }
     }
@@ -77,7 +74,7 @@ struct SignUpView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            SecureField("Enter password here", text: $password)
+            SecureField("Enter password here", text: $signUpVM.password)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -85,14 +82,17 @@ struct SignUpView: View {
         }
         .onTapGesture {
             withAnimation {
-                incorrectDetails = false
+                signUpVM.incorrectDetails = false
             }
         }
     }
     
     var signUpButton: some View {
         Button {
-            validateUserDetails()
+            signUpVM.validateCredentials(users: users)
+            if signUpVM.signedUp {
+                addUser()
+            }
         } label: {
             Text("Sign Up!")
                 .font(.headline)
@@ -125,15 +125,15 @@ struct SignUpView: View {
     var signUpLoginButton: some View {
         //Toggles between being a sign up button and a login button, the latter being displayed when user info has been entered and validated with the sign up button.
         ZStack {
-            signUpButton.opacity(signedUp ? 0 : 1)
-            loginLink.opacity(signedUp ? 1 : 0)
+            signUpButton.opacity(signUpVM.signedUp ? 0 : 1)
+            loginLink.opacity(signUpVM.signedUp ? 1 : 0)
         }
     }
     
     var incorrectDetailsView: some View {
         HStack {
             Image(systemName: "exclamationmark.triangle.fill")
-            Text("Please enter your details.")
+            Text(signUpVM.signUpErr)
         }
         .font(.headline)
         .fontWeight(.bold)
@@ -147,7 +147,7 @@ struct SignUpView: View {
     
     var successfulSignUpView: some View {
         VStack {
-            Text("Welcome to HabitTracker \(username)!")
+            Text("Welcome to HabitTracker \(signUpVM.username)!")
             HStack {
                 Text("Log into your account")
                 Image(systemName: "arrow.down")
@@ -166,33 +166,18 @@ struct SignUpView: View {
         //Message that doesn't apply is hidden based on state variable values.
         ZStack {
             incorrectDetailsView
-                .opacity(incorrectDetails ? 1 : 0)
+                .opacity(signUpVM.incorrectDetails ? 1 : 0)
             successfulSignUpView
-                .opacity(signedUp ? 1 : 0)
+                .opacity(signUpVM.signedUp ? 1 : 0)
         }
         .padding(.vertical)
     }
     
-    func validateUserDetails() {
-        //Displays error message if name and password fields are left blank.
-        guard !username.isEmpty && !password.isEmpty else {
-            withAnimation {
-                incorrectDetails = true
-            }
-            return
-        }
-        //Displays signed up message and adds user to database if details are valid.
-        withAnimation {
-            incorrectDetails = false
-            signedUp = true
-            addUser()
-        }
-    }
-    
     func addUser() {
         //Adds user to the database.
-        let newUser = User(name: username, password: password)
+        let newUser = User(name: signUpVM.username, password: signUpVM.password)
         modelContext.insert(newUser)
+        signUpVM.signedUp = true
     }
 }
 

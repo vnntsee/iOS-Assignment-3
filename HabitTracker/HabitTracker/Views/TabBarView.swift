@@ -32,6 +32,7 @@ struct TabBarView: View {
                     Text("Profile")
                 }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

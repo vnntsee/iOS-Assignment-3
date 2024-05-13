@@ -9,13 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct LoginView: View {
-    @Environment(\.modelContext) var modelContext
-    @Query var users: [User]
-    
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var incorrectDetails: Bool = false
-    @State private var loggedIn: Bool = false
+    @Query var users: [User] //Used to access all user records in the database
+    @ObservedObject var usersVM = UsersViewModel() //Used to set current user upon successful login.
     
     var body: some View {
         ZStack {
@@ -33,6 +28,10 @@ struct LoginView: View {
             }
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .padding(.horizontal)
+            //Automatically navigates to tabBarView when the user enters correct credentials.
+            .navigationDestination(isPresented: $usersVM.loggedIn, destination: {
+                TabBarView()
+            })
         }
     }
     
@@ -58,7 +57,7 @@ struct LoginView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            TextField("Enter username here", text: $username)
+            TextField("Enter username here", text: $usersVM.username)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -66,7 +65,7 @@ struct LoginView: View {
         }
         .onTapGesture {
             withAnimation {
-                incorrectDetails = false
+                usersVM.incorrectDetails = false
             }
         }
     }
@@ -77,7 +76,7 @@ struct LoginView: View {
                 .font(.headline)
                 .fontWeight(.bold)
                 .padding()
-            SecureField("Enter password here", text: $password)
+            SecureField("Enter password here", text: $usersVM.password)
                 .padding()
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -85,14 +84,14 @@ struct LoginView: View {
         }
         .onTapGesture {
             withAnimation {
-                incorrectDetails = false
+                usersVM.incorrectDetails = false
             }
         }
     }
     
     var loginButton: some View {
         Button {
-            validateCredentials()
+            usersVM.validateCredentials(users: users)
         } label: {
             Text("Log In!")
                 .font(.headline)
@@ -129,22 +128,7 @@ struct LoginView: View {
         .shadow(radius: 5)
         .foregroundColor(.white)
         .padding(.vertical)
-        .opacity(incorrectDetails ? 1 : 0)
-    }
-    
-    func validateCredentials() {
-        //Checks database for credentials that match the user's.
-        for user in users {
-            if user.name == username && user.password == password {
-                loggedIn = true
-            }
-        }
-        
-        if !loggedIn {
-            withAnimation {
-                incorrectDetails = true
-            }
-        }
+        .opacity(usersVM.incorrectDetails ? 1 : 0)
     }
     
 }

@@ -12,14 +12,10 @@ struct LeaderboardView: View {
     @Query(sort: [SortDescriptor(\User.points, order: .reverse)]) var users: [User]
     //modelContext tracks all objects and CRUD operations related to them, allowing for them to be saved to the modelContainer(defined in App struct) later on.
     @Environment(\.modelContext) var modelContext
+    @ObservedObject var usersVM: UsersViewModel = UsersViewModel()
     
-    @ObservedObject var usersVM = UsersViewModel()
-    
-    //Sample data for preview
-    @State var sampleUsers: [User] = [User(name: "Jane Doe", points: 5000, ranking: 1), User(name: "John Doe", points: 4300, ranking: 2), User(name: "Jack Jones", points: 1504, ranking: 3), User(name: "Joe Roberts", points: 1100, ranking: 4)]
-    @State var currUser: User = User(name: "John Doe", points: 4300, ranking: 2)
-
     var body: some View {
+        
         ZStack {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
@@ -114,16 +110,17 @@ struct LeaderboardView: View {
                     .resizable()
                     .frame(width: 90, height: 90)
                     .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.white)))
-                Text("\(currUser.ranking)")
+                Text("\(getUser().ranking)")
             }
             Spacer()
             VStack {
                 profileImage
                     .frame(width: 120)
-                Text(currUser.name)
+                Text("\(getUser().name)")
             }
             Spacer()
-            Text("\(currUser.points)")
+            Text("\(getUser().points)")
+                .frame(minWidth: 90)
         }
         .font(.title)
         .padding()
@@ -150,6 +147,16 @@ struct LeaderboardView: View {
             .background(Color(UIColor(named: "EarthYellow") ?? UIColor(Color.orange)))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
+    }
+    
+    //Returns user whose username matches the inputted one or a default user object if a use with that username is not found in the database.
+    func getUser() -> User {
+        for user in users {
+            if user.name == usersVM.currUserStr {
+                return user
+            }
+        }
+        return User(name: "Default")
     }
     
 }
