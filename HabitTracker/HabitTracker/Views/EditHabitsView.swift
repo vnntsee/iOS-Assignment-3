@@ -48,6 +48,8 @@ struct EditHabitsView: View {
                         .padding()
                         // where all the buttons for editing the list is located.
                         .contextMenu(ContextMenu(menuItems: {
+                            
+                            /*Button(action: editHabitsVM.editPressed = true)*/
                             Text("Edit")
                             
                             // deletes the habit
@@ -69,6 +71,10 @@ struct EditHabitsView: View {
                 .listRowBackground(Color.white)
                 .listStyle(.plain)
                 .cornerRadius(30)
+                
+                .sheet(isPresented: $editHabitsVM.editPressed) {
+                    AddHabitsView()
+                }
             }
             .padding()
         }
