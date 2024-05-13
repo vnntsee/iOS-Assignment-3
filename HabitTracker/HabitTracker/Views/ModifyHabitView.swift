@@ -17,7 +17,7 @@ struct ModifyHabitView: View {
     
     @State private var daysSelected: Set<String> = []
     
-    @State var habitAddedAlert: Bool = false
+    @State var habitUpdatedAlert: Bool = false
     
     let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
     
@@ -38,9 +38,9 @@ struct ModifyHabitView: View {
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-                    
+                
                 // where the user enters the name of the habit they want to add
-                TextField("e.g. drink water once every hour.", text: $newHabitName)
+                TextField("", text: $newHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -100,7 +100,7 @@ struct ModifyHabitView: View {
                 
                 
                 Spacer()
-                Button(action: addHabit, label: {
+                Button(action: editHabit, label: {
                     Text("Update Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
                         .foregroundColor(.black)
@@ -111,25 +111,18 @@ struct ModifyHabitView: View {
                         .padding()
                 })
                 
-                .alert(isPresented: $habitAddedAlert) {
-                            Alert(title: Text("Habit Updated"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
-                        }
-                
+                .alert(isPresented: $habitUpdatedAlert) {
+                    Alert(title: Text("Habit Updated"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
+                }
             }
         }
     }
-    func addHabit() {
-            let modifiedHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+    func editHabit() {
+        let modifiedHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
-        editHabitsVM.addHabit(modifiedHabit)
-                
-        daysSelected = []
-        newHabitName = ""
-        newPriority = 2
-        
-        // show habit added alert
-        habitAddedAlert = true
-        }
+        // show habit updated alert
+        habitUpdatedAlert = true
+    }
 }
 
 #Preview {

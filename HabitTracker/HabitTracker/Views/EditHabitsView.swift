@@ -24,6 +24,7 @@ struct EditHabitsView: View {
                     .foregroundStyle(.orange)
                     .bold()
                 
+                // Filters the habits the user wants to look for.
                 TextField("Search...", text: $searchHabit)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -60,8 +61,6 @@ struct EditHabitsView: View {
                             }) {
                                 Text("Delete")
                             }
-                            
-                            Text("Menu Item 3")
                         }))
                     }
                 }
@@ -73,7 +72,7 @@ struct EditHabitsView: View {
                 .cornerRadius(30)
                 
                 .sheet(isPresented: $editHabitsVM.editPressed) {
-                    AddHabitsView()
+                    ModifyHabitView()
                 }
             }
             .padding()
