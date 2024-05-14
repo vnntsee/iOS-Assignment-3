@@ -32,36 +32,29 @@ struct EditHabitsView: View {
                     .background(.regularMaterial)
                     .cornerRadius(30)
                 
-                List {
-                    ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in
-                        VStack(alignment: .leading) {
-                            Text("**\(habit.name)** \n")
-                                .font(.system(size: 25))
-                                .foregroundColor(.earthYellow)
-                            
-                            Text("**Priority:** \(habit.priority)\n")
-                            
-                            Text("**Days to Complete:**")
-                                .foregroundColor(.mediumYellow)
-                            
-                            Text("\(habit.daysToComplete.joined(separator: ", "))")
-                        }
-                        .padding()
-                        // where all the buttons for editing the list is located.
-                        .contextMenu(ContextMenu(menuItems: {
-                            
-                            /*Button(action: editHabitsVM.editPressed = true)*/
-                            Text("Edit")
-                            
-                            // deletes the habit
-                            Button(action: {
-                                withAnimation {
-                                    editHabitsVM.deleteHabit(withUUID: UUID(uuidString: habit.id)!)
-                                }
-                            }) {
-                                Text("Delete")
+                
+                NavigationStack {
+                    List {
+                        ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in NavigationLink(destination: ModifyHabitView(editHabitsVM: editHabitsVM)) {
+                            VStack(alignment: .leading) {
+                                Text("**\(habit.name)**")
+                                    .foregroundColor(.earthYellow)
+                                    .bold()
+                                    .font(.system(size: 25))
+                                
+                                Text("**Priority:** \(habit.priority)")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.vertical, 2)
+                                
+                                Text("**Days to Complete:**")
+                                    .foregroundColor(.mediumYellow)
+                                
+                                Text("\(habit.daysToComplete.joined(separator: ", "))")
                             }
-                        }))
+                        }
+                        }
+                        
+                        .padding()
                     }
                 }
                 // edits the look of the list

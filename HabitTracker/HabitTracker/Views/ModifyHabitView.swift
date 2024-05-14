@@ -11,15 +11,18 @@ import SwiftData
 struct ModifyHabitView: View {
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
+    @State private var selectedHabit: Habit?
+    
     @State var newHabitName = ""
     
     @State var newPriority: Int = 2
     
-    @State private var daysSelected: Set<String> = []
-    
+    @State private var daysSelected = Set<String>()
+
     @State var habitUpdatedAlert: Bool = false
     
     let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+    
     
     var body: some View {
         ZStack {
@@ -27,11 +30,13 @@ struct ModifyHabitView: View {
                 .ignoresSafeArea(.all)
             
             VStack {
+                /*
                 Text("Edit Habit")
                     .font(.largeTitle)
                     .foregroundStyle(.orange)
                     .bold()
                     .padding(20)
+                 */
                 
                 Text("Update the name of your habit:")
                     .font(.title3)
@@ -66,7 +71,7 @@ struct ModifyHabitView: View {
                 .padding(.horizontal)
                 .padding(.bottom)
                 
-                Text("Select how often you want to complete your habit:")
+                Text("Update how often you want to do your habit:")
                     .font(.title3)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -100,6 +105,7 @@ struct ModifyHabitView: View {
                 
                 
                 Spacer()
+                
                 Button(action: editHabit, label: {
                     Text("Update Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
@@ -110,6 +116,14 @@ struct ModifyHabitView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         .padding()
                 })
+                
+                Button(action: deleteHabit, label: {
+                        Text("Delete Habit")
+                        .foregroundColor(.red)
+                        .font(.title3)
+                        .bold()
+                        .padding(.horizontal)
+                    })
                 
                 .alert(isPresented: $habitUpdatedAlert) {
                     Alert(title: Text("Habit Updated"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
@@ -123,6 +137,10 @@ struct ModifyHabitView: View {
         // show habit updated alert
         habitUpdatedAlert = true
     }
+    
+    func deleteHabit() {
+    }
+    
 }
 
 #Preview {

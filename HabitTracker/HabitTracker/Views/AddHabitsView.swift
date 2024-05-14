@@ -16,7 +16,7 @@ struct AddHabitsView: View {
     
     @State var newPriority: Int = 2
     
-    @State private var daysSelected: Set<String> = []
+    @State private var daysSelected = Set<String>()
     
     @State var habitAddedAlert: Bool = false
     
