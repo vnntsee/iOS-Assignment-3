@@ -16,6 +16,7 @@ struct ProfileView: View {
     @Query(sort: [SortDescriptor(\User.points, order: .reverse)]) var users: [User]
     @Environment(\.modelContext) var modelContext
     @ObservedObject var usersVM = UsersViewModel()
+    @State var loggedOut = false
     
     var body: some View {
         // Background setup
@@ -28,7 +29,7 @@ struct ProfileView: View {
                 Text("\(usersVM.getUser(users: users).name)")
                     .font(.title)
                     .fontWeight(.black)
-                // User's profsile image
+                // User's profile image
                 Image("DefaultProfile")
                     .padding(.bottom, 20)
                 // User's statistics
@@ -49,7 +50,8 @@ struct ProfileView: View {
                 .font(.title3)
                 .fontWeight(.semibold)
             }
-            .navigationDestination(isPresented: $usersVM.loggedIn, destination: {
+            .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
+            .navigationDestination(isPresented: $loggedOut, destination: {
                 HomeView()
             })
             .padding(40)
@@ -61,13 +63,41 @@ struct ProfileView: View {
     var logOutButton: some View {
         Button {
             usersVM.logout()
+            loggedOut = true
         } label: {
             Text("Logout")
+                .frame(width: 130)
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding()
+                .background(Color(UIColor(named: "EarthYellow") ?? UIColor(Color.orange)))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         }
     }
     
     var deleteAccountButton: some View {
-        Text("Delete Account")
+        Button {
+            deleteUser()
+            loggedOut = true
+        } label: {
+            Text("Delete Account")
+                .foregroundStyle(Color.white)
+                .frame(width: 130)
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding()
+                .background(Color.red)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+        }
+    }
+    
+    func deleteUser() {
+        for user in users {
+            if user.name == usersVM.currUserStr {
+                modelContext.delete(user)
+                break
+            }
+        }
     }
     
 }
