@@ -11,7 +11,9 @@ import SwiftData
 struct EditHabitsView: View {
     
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
+    @ObservedObject var usersViewModelVM = UsersViewModel()
     
+    @Query var users: [User]
     @Query var habits: [Habit]
     @Environment(\.modelContext) var modelContext
     

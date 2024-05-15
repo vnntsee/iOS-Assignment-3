@@ -23,9 +23,11 @@ class EditHabitsViewModel: ObservableObject {
         guard !searchHabit.isEmpty else { return habitList }
         return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
+    
     // filters the habits being searched in the Habit List
     
     /* switched to using swiftdata instead
+     
     func deleteHabit(withUUID uuid: UUID) {
             if let index = habitList.firstIndex(where: { $0.id == uuid.uuidString }) {
                 habitList.remove(at: index)
