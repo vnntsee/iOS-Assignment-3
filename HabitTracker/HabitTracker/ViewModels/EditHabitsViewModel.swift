@@ -18,10 +18,12 @@ class EditHabitsViewModel: ObservableObject {
             Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3, dateCreated: .now, isCompleted: false)
         ]
     // some sample habits to get the user started and to have something to show during presentation.
+    
     func filterHabits(by searchHabit: String) -> [Habit] {
         guard !searchHabit.isEmpty else { return habitList }
         return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
+    // filters the habits being searched in the Habit List
     
     func deleteHabit(withUUID uuid: UUID) {
             if let index = habitList.firstIndex(where: { $0.id == uuid.uuidString }) {
@@ -36,11 +38,11 @@ class EditHabitsViewModel: ObservableObject {
     func priorityRating(for priority: Int) -> String {
         switch priority {
         case 1:
-            return "Low"
+            return "🐝"
         case 2:
-            return "Medium"
+            return "🐝🐝"
         default:
-            return "High"
+            return "🐝🐝🐝"
         }
     }
     

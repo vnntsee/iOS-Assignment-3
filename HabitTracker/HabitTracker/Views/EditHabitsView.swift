@@ -12,6 +12,9 @@ struct EditHabitsView: View {
     
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
+    @Query var habits: [Habit]
+    @Environment(\.modelContext) var modelContext
+    
     @State private var searchHabit:String = ""
     
     var body: some View {

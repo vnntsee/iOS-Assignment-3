@@ -11,6 +11,9 @@ import SwiftData
 struct ModifyHabitView: View {
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
+    @Query var habits: [Habit]
+    @Environment(\.modelContext) var modelContext
+    
     @State private var selectedHabit: Habit?
     
     @State var newHabitName = ""
@@ -30,13 +33,11 @@ struct ModifyHabitView: View {
                 .ignoresSafeArea(.all)
             
             VStack {
-                /*
                 Text("Edit Habit")
                     .font(.largeTitle)
                     .foregroundStyle(.orange)
                     .bold()
                     .padding(20)
-                 */
                 
                 Text("Update the name of your habit:")
                     .font(.title3)
@@ -139,6 +140,7 @@ struct ModifyHabitView: View {
     }
     
     func deleteHabit() {
+        
     }
     
 }

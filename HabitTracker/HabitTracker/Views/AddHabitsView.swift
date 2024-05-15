@@ -12,6 +12,9 @@ struct AddHabitsView: View {
     
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
+    @Query var habits: [Habit]
+    @Environment(\.modelContext) var modelContext
+    
     @State var newHabitName = ""
     
     @State var newPriority: Int = 2
@@ -122,7 +125,9 @@ struct AddHabitsView: View {
     func addHabit() {
             let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
-        editHabitsVM.addHabit(newHabit)
+        //editHabitsVM.addHabit(newHabit)
+        
+        modelContext.insert(newHabit)
                 
         daysSelected = []
         newHabitName = ""
