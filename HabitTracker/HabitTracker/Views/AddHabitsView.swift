@@ -23,7 +23,7 @@ struct AddHabitsView: View {
     
     @State var habitAddedAlert: Bool = false
     
-    let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+    let weekdays = Date.weekdays
     
     var body: some View {
         ZStack {
@@ -77,7 +77,35 @@ struct AddHabitsView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
-                List(days, id: \.self) { day in
+                List {
+                    ForEach(weekdays, id: \.self) { weekday in
+                        Button(action: {
+                            if daysSelected.contains(weekday) {
+                                daysSelected.remove(weekday)
+                            } else {
+                                daysSelected.insert(weekday)
+                            }
+                        }) {
+                            HStack {
+                                Text(weekday)
+                                Spacer()
+                                if daysSelected.contains(weekday) {
+                                    Image(systemName: "hexagon.fill")
+                                        .foregroundColor(.yellow)
+                                        .bold()
+                                }
+                            }
+                        }
+                    }
+                } 
+                .frame(maxWidth: 200, maxHeight: 200)
+                .listStyle(.plain)
+                .cornerRadius(20)
+                .padding()
+                .fontDesign(.monospaced)
+                
+                /*
+                { day in
                     Button(action: {
                         if daysSelected.contains(day) {
                             daysSelected.remove(day)
@@ -96,12 +124,7 @@ struct AddHabitsView: View {
                         }
                     }
                 }
-                .frame(maxWidth: 200, maxHeight: 200)
-                .listStyle(.plain)
-                .cornerRadius(20)
-                .padding()
-                .fontDesign(.monospaced)
-                
+                */
                 
                 Spacer()
                 Button(action: addHabit, label: {

@@ -25,6 +25,7 @@ class EditHabitsViewModel: ObservableObject {
         }
     // filters the habits being searched in the Habit List
     
+    /* switched to using swiftdata instead
     func deleteHabit(withUUID uuid: UUID) {
             if let index = habitList.firstIndex(where: { $0.id == uuid.uuidString }) {
                 habitList.remove(at: index)
@@ -34,6 +35,8 @@ class EditHabitsViewModel: ObservableObject {
     func addHabit(_ habit: Habit) {
         habitList.append(habit)
     }
+    
+     */
     
     func priorityRating(for priority: Int) -> String {
         switch priority {

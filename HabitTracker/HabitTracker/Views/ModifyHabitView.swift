@@ -24,7 +24,7 @@ struct ModifyHabitView: View {
 
     @State var habitUpdatedAlert: Bool = false
     
-    let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+    let weekdays = Date.weekdays
     
     
     var body: some View {
@@ -79,6 +79,34 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
+                List {
+                    ForEach(weekdays, id: \.self) { weekday in
+                        Button(action: {
+                            if daysSelected.contains(weekday) {
+                                daysSelected.remove(weekday)
+                            } else {
+                                daysSelected.insert(weekday)
+                            }
+                        }) {
+                            HStack {
+                                Text(weekday)
+                                Spacer()
+                                if daysSelected.contains(weekday) {
+                                    Image(systemName: "hexagon.fill")
+                                        .foregroundColor(.yellow)
+                                        .bold()
+                                }
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: 200, maxHeight: 200)
+                .listStyle(.plain)
+                .cornerRadius(20)
+                .padding()
+                .fontDesign(.monospaced)
+                
+                /*
                 List(days, id: \.self) { day in
                     Button(action: {
                         if daysSelected.contains(day) {
@@ -98,12 +126,8 @@ struct ModifyHabitView: View {
                         }
                     }
                 }
-                .frame(maxWidth: 200, maxHeight: 200)
-                .listStyle(.plain)
-                .cornerRadius(20)
-                .padding()
-                .fontDesign(.monospaced)
                 
+                */
                 
                 Spacer()
                 
