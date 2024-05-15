@@ -125,8 +125,7 @@ struct AllHabitsView: View {
                 AddHabitsView()
             } label: {
                 Image(systemName: "plus.circle.fill")
-                    .resizable()
-                    .scaledToFit()
+                    .font(.largeTitle)
                     .frame(height: 20)
                     .foregroundStyle(.mediumYellow)
             }
@@ -134,8 +133,7 @@ struct AllHabitsView: View {
                 EditHabitsView()
             } label: {
                 Image(systemName: "list.bullet.circle.fill")
-                    .resizable()
-                    .scaledToFit()
+                    .font(.largeTitle)
                     .frame(height: 20)
                     .foregroundStyle(.mediumYellow)
             }
