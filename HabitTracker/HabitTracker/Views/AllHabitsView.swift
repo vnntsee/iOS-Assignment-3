@@ -14,8 +14,6 @@ struct AllHabitsView: View {
     @State private var date = Date.now
     @State private var days: [Date] = []
     @State private var selectedMonth = Date.now.monthInt
-    //    @State private var years: [Int] = []
-    //    @State private var selectedYear = Date.now.yearInt
     let weekdays = Date.weekdays
     let months = Date.months
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
@@ -61,11 +59,6 @@ struct AllHabitsView: View {
 //                    }
                     VStack {
                         HStack {
-                            //                            Picker("", selection: $selectedYear) {
-                            //                                ForEach(years, id: \.self) { year in
-                            //                                    Text(String(year))
-                            //                                }
-                            //                            }
                             Picker("", selection: $selectedMonth) {
                                 ForEach(months.indices, id: \.self) { index in
                                     Text(months[index])
@@ -124,9 +117,6 @@ struct AllHabitsView: View {
     func updateDate() {
         date = Calendar.current.date(from: DateComponents(year: 2024, month: selectedMonth, day: 1))!
     }
-    //    func hexagonColor(for habit: Habit) -> Color {
-    //        return allHabitsVM.completedHabits.contains(habit) ? .earthYellow : .pastelYellow
-    //    }
     
     var editAndAddButtons: some View {
         HStack {
