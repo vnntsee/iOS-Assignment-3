@@ -18,25 +18,25 @@ struct EditHabitsView: View {
     @State private var searchHabit:String = ""
     
     var body: some View {
-        ZStack {
-            Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
-                .ignoresSafeArea(.all)
-            VStack {
-                Text("Habits")
-                    .font(.largeTitle)
-                    .foregroundStyle(.orange)
-                    .bold()
-                
-                // Filters the habits the user wants to look for.
-                TextField("Search...", text: $searchHabit)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 55)
-                    .background(.regularMaterial)
-                    .cornerRadius(30)
-                
-                
-                NavigationStack {
+        NavigationStack {
+            ZStack {
+                Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
+                    .ignoresSafeArea(.all)
+                VStack {
+                    Text("Habits")
+                        .font(.largeTitle)
+                        .foregroundStyle(.orange)
+                        .bold()
+                    
+                    // Filters the habits the user wants to look for.
+                    TextField("Search...", text: $searchHabit)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 55)
+                        .background(.regularMaterial)
+                        .cornerRadius(30)
+                    
+                    
                     List {
                         ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in NavigationLink(destination: ModifyHabitView(editHabitsVM: editHabitsVM)) {
                             VStack(alignment: .leading) {
@@ -59,19 +59,19 @@ struct EditHabitsView: View {
                         
                         .padding()
                     }
+                    // edits the look of the list
+                    .font(.system(size: 20))
+                    .fontDesign(.monospaced)
+                    .listRowBackground(Color.white)
+                    .listStyle(.plain)
+                    .cornerRadius(30)
+                    
+                    .sheet(isPresented: $editHabitsVM.editPressed) {
+                        ModifyHabitView()
+                    }
                 }
-                // edits the look of the list
-                .font(.system(size: 20))
-                .fontDesign(.monospaced)
-                .listRowBackground(Color.white)
-                .listStyle(.plain)
-                .cornerRadius(30)
-                
-                .sheet(isPresented: $editHabitsVM.editPressed) {
-                    ModifyHabitView()
-                }
+                .padding()
             }
-            .padding()
         }
     }
 }
