@@ -16,6 +16,8 @@ struct AddHabitsView: View {
     
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
+    @StateObject var addHabitsVM = AddHabitsViewModel()
+    
     @State var newHabitName = ""
     
     @State var newPriority: Int = 2
@@ -23,6 +25,9 @@ struct AddHabitsView: View {
     @State private var daysSelected = Set<String>()
     
     @State var habitAddedAlert: Bool = false
+    
+    @State private var showingAlert = false // Tracks whether to show an alert.
+    @State private var alertMessage = "" // Stores the message to display in the alert.
     
     let weekdays = Date.weekdays
     
@@ -43,7 +48,7 @@ struct AddHabitsView: View {
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-                    
+                
                 // where the user enters the name of the habit they want to add
                 TextField("e.g. drink water once every hour.", text: $newHabitName)
                     .padding()
@@ -98,7 +103,7 @@ struct AddHabitsView: View {
                             }
                         }
                     }
-                } 
+                }
                 .frame(maxWidth: 200, maxHeight: 200)
                 .listStyle(.plain)
                 .cornerRadius(20)
@@ -106,29 +111,42 @@ struct AddHabitsView: View {
                 .fontDesign(.monospaced)
                 
                 /*
-                { day in
-                    Button(action: {
-                        if daysSelected.contains(day) {
-                            daysSelected.remove(day)
-                        } else {
-                            daysSelected.insert(day)
-                        }
-                    }) {
-                        HStack {
-                            Text(day)
-                            Spacer()
-                            if daysSelected.contains(day) {
-                                Image(systemName: "hexagon.fill")
-                                    .foregroundColor(.yellow)
-                                    .bold()
-                            }
-                        }
-                    }
-                }
-                */
+                 { day in
+                 Button(action: {
+                 if daysSelected.contains(day) {
+                 daysSelected.remove(day)
+                 } else {
+                 daysSelected.insert(day)
+                 }
+                 }) {
+                 HStack {
+                 Text(day)
+                 Spacer()
+                 if daysSelected.contains(day) {
+                 Image(systemName: "hexagon.fill")
+                 .foregroundColor(.yellow)
+                 .bold()
+                 }
+                 }
+                 }
+                 }
+                 */
                 
                 Spacer()
-                Button(action: addHabit, label: {
+                Button(action: {
+                    addHabitsVM.habitName = newHabitName
+                    addHabitsVM.daysSelected = daysSelected.joined(separator: ",")
+                    addHabitsVM.validateInputs()
+                    if let errorMessage = addHabitsVM.errorMessage {
+                        showingAlert = true
+                        alertMessage = errorMessage
+                        habitAddedAlert = false
+                    } else {
+                        addHabit()
+                        showingAlert = true
+                        habitAddedAlert = true
+                    }
+                }, label: {
                     Text("Add Habit")
                         .frame(maxWidth: .infinity, maxHeight: 55)
                         .foregroundColor(.black)
@@ -138,30 +156,33 @@ struct AddHabitsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         .padding()
                 })
-                
-                .alert(isPresented: $habitAddedAlert) {
-                            Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
-                        }
+                .alert(isPresented: $showingAlert) {
+                    if habitAddedAlert {
+                        Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
+                    } else {
+                        Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    }
+                }
                 
             }
         }
     }
     func addHabit() {
-            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+        let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
         //editHabitsVM.addHabit(newHabit)
-
+        
         //modelContext.insert(newHabit)
         
         usersVM.getUser(users: users).habits.append(newHabit)
-                
+        
         daysSelected = []
         newHabitName = ""
         newPriority = 2
         
         // show habit added alert
         habitAddedAlert = true
-        }
+    }
 }
 
 #Preview {
