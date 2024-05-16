@@ -24,6 +24,7 @@ class EditHabitsViewModel: ObservableObject {
         return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }
         }
     
+    
     // filters the habits being searched in the Habit List
     
     /* switched to using swiftdata instead
@@ -52,5 +53,8 @@ class EditHabitsViewModel: ObservableObject {
     }
     
     
+    
+    @Published var habitToEditID: String = ""
+    @Published var goToHabit: Bool = false
 }
 

@@ -9,10 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct ModifyHabitView: View {
-    @ObservedObject var editHabitsVM = EditHabitsViewModel()
+    //@ObservedObject var editHabitsVM = EditHabitsViewModel()
+    @ObservedObject var editHabitsVM: EditHabitsViewModel
     
-    @Query var habits: [Habit]
+    //@Query var habits: [Habit]
     @Environment(\.modelContext) var modelContext
+    @Query var users: [User]
+    @ObservedObject var usersVM = UsersViewModel()
     
     @State private var selectedHabit: Habit?
     
@@ -46,7 +49,7 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                 
                 // where the user enters the name of the habit they want to add
-                TextField("", text: $updatedHabitName)
+                TextField(editHabitsVM.habitToEditID, text: $updatedHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -154,6 +157,9 @@ struct ModifyHabitView: View {
                     Alert(title: Text("Habit Updated!"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
                 }
             }
+//            .onAppear(perform: {
+//                editHabitsVM.goToHabit = false
+//            })
         }
     }
     func editHabit() {
@@ -175,7 +181,7 @@ struct ModifyHabitView: View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: User.self, configurations: config)
         
-        return ModifyHabitView()
+        return ModifyHabitView(editHabitsVM: EditHabitsViewModel())
             .modelContainer(container)
     } catch {
         fatalError("Failed to create model container.")

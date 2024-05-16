@@ -140,14 +140,14 @@ struct AddHabitsView: View {
                 })
                 
                 .alert(isPresented: $habitAddedAlert) {
-                            Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
-                        }
+                    Alert(title: Text("Habit Added"), message: Text("The habit has been successfully added."), dismissButton: .default(Text("OK!")))
+                }
                 
             }
         }
     }
     func addHabit() {
-            let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+        let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false, index: getNewHabitIndex())
         
         //editHabitsVM.addHabit(newHabit)
 
@@ -162,6 +162,14 @@ struct AddHabitsView: View {
         // show habit added alert
         habitAddedAlert = true
         }
+    
+    func getNewHabitIndex() -> Int {
+        var habitsNum: Int = usersVM.getUser(users: users).habits.count
+        if habitsNum >= 1 {
+            return habitsNum - 1
+        }
+        return 0
+    }
 }
 
 #Preview {

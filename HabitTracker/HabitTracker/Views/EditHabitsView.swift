@@ -20,10 +20,14 @@ struct EditHabitsView: View {
     @Query var habits: [Habit]
     @Environment(\.modelContext) var modelContext
     
+    
+    
+    
+    
     @State private var searchHabit:String = ""
     
     var body: some View {
-        NavigationStack {
+    //    NavigationStack {
             ZStack {
                 Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                     .ignoresSafeArea(.all)
@@ -39,20 +43,9 @@ struct EditHabitsView: View {
                         .frame(height: 55)
                         .background(.regularMaterial)
                         .cornerRadius(30)
-                    
-                    
-                    
-                    
+//                    
                     List {
                         ForEach(usersVM.getUser(users: users).habits) { habit in
-                            Text("\(habit.name)")
-                        }
-                    }
-                    
-                    
-                    
-                    List {
-                        ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in NavigationLink(destination: ModifyHabitView(editHabitsVM: editHabitsVM)) {
                             VStack(alignment: .leading) {
                                 Text("**\(habit.name)**")
                                     .foregroundColor(.earthYellow)
@@ -68,26 +61,56 @@ struct EditHabitsView: View {
                                 
                                 Text("\(habit.daysToComplete.joined(separator: ", "))")
                             }
+                            .onTapGesture {
+                                editHabitsVM.habitToEditID = habit.name
+                                editHabitsVM.goToHabit = true
+                            }
                         }
-                        }
-                        
-                        .padding()
                     }
-                    // edits the look of the list
+                    .navigationDestination(isPresented: $editHabitsVM.goToHabit, destination: {
+                        ModifyHabitView(editHabitsVM: editHabitsVM)
+                    })
                     .font(.system(size: 20))
                     .fontDesign(.monospaced)
                     .listRowBackground(Color.white)
                     .listStyle(.plain)
                     .cornerRadius(30)
                     
-                    .sheet(isPresented: $editHabitsVM.editPressed) {
-                        ModifyHabitView()
-                    }
+//                    List {
+//                        ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in NavigationLink(destination: ModifyHabitView(editHabitsVM: editHabitsVM)) {
+//                            VStack(alignment: .leading) {
+//                                Text("**\(habit.name)**")
+//                                    .foregroundColor(.earthYellow)
+//                                    .bold()
+//                                    .font(.system(size: 25))
+//                                
+//                                Text("**Priority:** \(habit.priority)")
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                    .padding(.vertical, 2)
+//                                
+//                                Text("**Days to Complete:**")
+//                                    .foregroundColor(.mediumYellow)
+//                                
+//                                Text("\(habit.daysToComplete.joined(separator: ", "))")
+//                            }
+//                        }
+//                        }
+//                        
+//                        .padding()
+//                    }
+//                    // edits the look of the list
+//                    .font(.system(size: 20))
+//                    .fontDesign(.monospaced)
+//                    .listRowBackground(Color.white)
+//                    .listStyle(.plain)
+//                    .cornerRadius(30)
+
                 }
                 .padding()
             }
         }
-    }
+  //  }
+
 }
 
 #Preview {
