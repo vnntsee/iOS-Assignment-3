@@ -16,7 +16,7 @@ struct EditHabitsView: View {
 //    @Query(filter: #Predicate<User> { user in
 //        user.name == "Tester"}) var currentUser: [User]
     @Query var users: [User]
-    @Query var habits: [Habit]
+//    @Query var habits: [Habit]
     @Environment(\.modelContext) var modelContext
     @State var goToEdit = false
     
@@ -41,10 +41,9 @@ struct EditHabitsView: View {
                         .cornerRadius(30)
                     
                     
-                    
-                    
                     List {
-                        ForEach(usersVM.getUser(users: users).habits) { habit in
+                        ForEach(usersVM.getUser(users: users).habits.indices, id: \.self) { index in
+                            let habit = usersVM.getUser(users: users).habits[index]
                             VStack(alignment: .leading) {
                                 Text("**\(habit.name)**")
                                     .foregroundColor(.earthYellow)
@@ -60,18 +59,21 @@ struct EditHabitsView: View {
                                 
                                 Text("\(habit.daysToComplete.joined(separator: ", "))")
                             }
+                            .onTapGesture {
+                                editHabitsVM.habitToModifyIndex = index
+                                goToEdit = true
+                            }
                         }
-                        .navigationDestination(isPresented: $goToEdit, destination: { ModifyHabitView(editHabitsVM: editHabitsVM)
+                        .navigationDestination(isPresented: $goToEdit, destination: {
+                            ModifyHabitView(editHabitsVM: editHabitsVM)
                         })
-                    }
-                    .onTapGesture {
-                        goToEdit = true
                     }
                     .font(.system(size: 20))
                     .fontDesign(.monospaced)
                     .listRowBackground(Color.white)
                     .listStyle(.plain)
                     .cornerRadius(30)
+
                     
                     
 //                    

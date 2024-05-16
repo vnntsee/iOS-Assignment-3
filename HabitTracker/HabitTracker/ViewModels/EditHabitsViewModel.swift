@@ -19,6 +19,8 @@ class EditHabitsViewModel: ObservableObject {
         ]
     // some sample habits to get the user started and to have something to show during presentation.
     
+    @Published var habitToModifyIndex: Int = -1
+    
     func filterHabits(by searchHabit: String) -> [Habit] {
         guard !searchHabit.isEmpty else { return habitList }
         return habitList.filter { $0.name.localizedCaseInsensitiveContains(searchHabit) }

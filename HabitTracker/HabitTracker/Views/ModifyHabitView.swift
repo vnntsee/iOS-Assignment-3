@@ -11,7 +11,8 @@ import SwiftData
 struct ModifyHabitView: View {
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
     
-    @Query var habits: [Habit]
+    @ObservedObject var usersVM = UsersViewModel()
+    @Query var users: [User]
     @Environment(\.modelContext) var modelContext
     
     @State private var selectedHabit: Habit?
@@ -46,7 +47,7 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                 
                 // where the user enters the name of the habit they want to add
-                TextField("", text: $updatedHabitName)
+                TextField("\(editHabitsVM.habitToModifyIndex)", text: $updatedHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -100,6 +101,9 @@ struct ModifyHabitView: View {
                         }
                     }
                 }
+                .navigationDestination(isPresented: $habitUpdatedAlert, destination: {
+                    EditHabitsView()
+                })
                 .frame(maxWidth: 200, maxHeight: 200)
                 .listStyle(.plain)
                 .cornerRadius(20)
@@ -158,6 +162,10 @@ struct ModifyHabitView: View {
     }
     func editHabit() {
         let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+        
+        guard editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count else { return }
+        
+        usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex] = modifiedHabit
         
         // show habit updated alert
         habitUpdatedAlert = true
