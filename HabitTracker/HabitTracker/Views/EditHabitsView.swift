@@ -28,6 +28,7 @@ struct EditHabitsView: View {
                 Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                     .ignoresSafeArea(.all)
                 VStack {
+                    homeButton
                     Text("Habits")
                         .font(.largeTitle)
                         .foregroundStyle(.orange)
@@ -42,7 +43,7 @@ struct EditHabitsView: View {
                     
                     
                     List {
-                        ForEach(usersVM.getUser(users: users).habits.indices, id: \.self) { index in
+                        ForEach(usersVM.getUser(users: users).habits.sorted(by: {$0.dateCreated < $1.dateCreated}).indices, id: \.self) { index in
                             let habit = usersVM.getUser(users: users).habits[index]
                             VStack(alignment: .leading) {
                                 Text("**\(habit.name)**")
@@ -68,6 +69,7 @@ struct EditHabitsView: View {
                             ModifyHabitView(editHabitsVM: editHabitsVM)
                         })
                     }
+                    .navigationBarBackButtonHidden(true)
                     .font(.system(size: 20))
                     .fontDesign(.monospaced)
                     .listRowBackground(Color.white)
@@ -113,6 +115,12 @@ struct EditHabitsView: View {
                 .padding()
             }
         }
+    
+    var homeButton: some View {
+        NavigationLink(destination: TabBarView(), label: {
+            Text("Home")
+        })
+    }
 //    }
 }
 

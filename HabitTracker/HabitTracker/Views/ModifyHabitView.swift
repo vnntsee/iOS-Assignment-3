@@ -24,6 +24,7 @@ struct ModifyHabitView: View {
     @State private var daysSelected = Set<String>()
 
     @State var habitUpdatedAlert: Bool = false
+    @State var isDeleted: Bool = false
     
     let weekdays = Date.weekdays
     
@@ -155,24 +156,32 @@ struct ModifyHabitView: View {
                     })
                 
                 .alert(isPresented: $habitUpdatedAlert) {
-                    Alert(title: Text("Habit Updated!"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
+                    Alert(title: Text(isDeleted ? "Habit Deleted!" : "Habit Updated!"), message: Text(isDeleted ? "The habit has been deleted!" : "The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
                 }
+//                .alert(isPresented: $habitDeletedAlert) {
+//                    Alert(title: Text("Habit Deleted!"), message: Text("The habit has been successfully deleted."))
+//                }
             }
         }
     }
     func editHabit() {
-        let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+        let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, isCompleted: false)
         
         guard editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count else { return }
         
         usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex] = modifiedHabit
+        
         
         // show habit updated alert
         habitUpdatedAlert = true
     }
     
     func deleteHabit() {
+        guard editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count else { return }
         
+        usersVM.getUser(users: users).habits.remove(at: editHabitsVM.habitToModifyIndex)
+        isDeleted = true
+        habitUpdatedAlert = true
     }
     
 }
