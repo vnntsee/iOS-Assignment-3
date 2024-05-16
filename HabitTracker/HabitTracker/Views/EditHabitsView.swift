@@ -9,8 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct EditHabitsView: View {
-    
+
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
+    
+    @ObservedObject var usersVM = UsersViewModel()
+//    @Query(filter: #Predicate<User> { user in
+//        user.name == "Tester"}) var currentUser: [User]
+    @Query var users: [User]
     
     @Query var habits: [Habit]
     @Environment(\.modelContext) var modelContext
@@ -27,7 +32,6 @@ struct EditHabitsView: View {
                         .font(.largeTitle)
                         .foregroundStyle(.orange)
                         .bold()
-                    
                     // Filters the habits the user wants to look for.
                     TextField("Search...", text: $searchHabit)
                         .padding()
@@ -35,6 +39,16 @@ struct EditHabitsView: View {
                         .frame(height: 55)
                         .background(.regularMaterial)
                         .cornerRadius(30)
+                    
+                    
+                    
+                    
+                    List {
+                        ForEach(usersVM.getUser(users: users).habits) { habit in
+                            Text("\(habit.name)")
+                        }
+                    }
+                    
                     
                     
                     List {

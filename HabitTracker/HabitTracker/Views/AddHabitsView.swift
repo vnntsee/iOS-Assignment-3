@@ -9,11 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct AddHabitsView: View {
+    //@Query var habits: [Habit]
+    @Query var users: [User]
+    @Environment(\.modelContext) var modelContext
+    @ObservedObject var usersVM = UsersViewModel()
     
     @ObservedObject var editHabitsVM = EditHabitsViewModel()
-    
-    @Query var habits: [Habit]
-    @Environment(\.modelContext) var modelContext
     
     @State var newHabitName = ""
     
@@ -149,8 +150,10 @@ struct AddHabitsView: View {
             let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
         //editHabitsVM.addHabit(newHabit)
+
+        //modelContext.insert(newHabit)
         
-        modelContext.insert(newHabit)
+        usersVM.getUser(users: users).habits.append(newHabit)
                 
         daysSelected = []
         newHabitName = ""
