@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import HexGrid
 
 struct TodayView: View {
     
@@ -43,14 +44,14 @@ struct TodayView: View {
     
     var progressBox: some View {
         //First rectangle displays colour for all habits having been completed. Second rectangle is white with a starting opacity of 1 which is decreased as habits are completed.
-        RoundedRectangle(cornerRadius: 25)
+        Hexagon()
             .fill(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.yellow)))
-            .frame(width: 200, height: 150)
+            .frame(width: 350, height: 150)
             .shadow(radius: 5)
             .overlay {
-                RoundedRectangle(cornerRadius: 25)
+                Hexagon()
                     .fill(Color.white)
-                    .frame(width: 200, height: 150)
+                    .frame(width: 350, height: 150)
                     .opacity(habitsVM.completionOpacity)
             }
             .padding()
@@ -58,7 +59,7 @@ struct TodayView: View {
     }
     
     var habitBox: some View {
-        RoundedRectangle(cornerRadius: 15)
+        Hexagon()
             .frame(width: 50, height: 50)
             .shadow(radius: 5)
     }

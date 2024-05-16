@@ -23,36 +23,36 @@ struct HomeView: View {
             .font(.title2)
             .fontWeight(.bold)
         }
-            }
     }
-    
-    var loginLink: some View {
-        NavigationLink (destination: LoginView(), label: {
-            ZStack {
-                Image(systemName: "hexagon.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 120)
-                    .foregroundStyle(Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow)))
-                Text("Log In")
-            }
-        })
-        .padding(.trailing)
-    }
-    
-    var signUpLink: some View {
-        NavigationLink (destination: SignUpView(), label: {
-            ZStack {
-                Image(systemName: "hexagon.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 120)
-                    .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.orange)))
-                Text("Sign Up")
-            }
-        })
-        .padding(.leading)
-    }
+}
+
+var loginLink: some View {
+    NavigationLink (destination: LoginView(), label: {
+        ZStack {
+            Image(systemName: "hexagon.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 120)
+                .foregroundStyle(Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow)))
+            Text("Log In")
+        }
+    })
+    .padding(.trailing)
+}
+
+var signUpLink: some View {
+    NavigationLink (destination: SignUpView(), label: {
+        ZStack {
+            Image(systemName: "hexagon.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 120)
+                .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.orange)))
+            Text("Sign Up")
+        }
+    })
+    .padding(.leading)
+}
 
 #Preview {
     //Stores temporary data for preview.

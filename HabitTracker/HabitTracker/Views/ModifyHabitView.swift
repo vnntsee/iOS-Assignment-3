@@ -16,7 +16,7 @@ struct ModifyHabitView: View {
     
     @State private var selectedHabit: Habit?
     
-    @State var newHabitName = ""
+    @State var updatedHabitName = ""
     
     @State var newPriority: Int = 2
     
@@ -46,7 +46,7 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                 
                 // where the user enters the name of the habit they want to add
-                TextField("", text: $newHabitName)
+                TextField("", text: $updatedHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -151,13 +151,13 @@ struct ModifyHabitView: View {
                     })
                 
                 .alert(isPresented: $habitUpdatedAlert) {
-                    Alert(title: Text("Habit Updated"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
+                    Alert(title: Text("Habit Updated!"), message: Text("The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
                 }
             }
         }
     }
     func editHabit() {
-        let modifiedHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
+        let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
         // show habit updated alert
         habitUpdatedAlert = true
