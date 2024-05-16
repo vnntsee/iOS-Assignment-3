@@ -29,88 +29,41 @@ struct AllHabitsView: View {
                     .ignoresSafeArea(.all)
                 VStack {
                     editAndAddButtons
-                    HStack {
-                        Text("All Habits")
-                            .font(.largeTitle)
-                            .fontWeight(.black)
-                        Picker("", selection: $selectedHabit) {
-                            Text("All").tag(nil as Habit?)
-                            ForEach(habit) { habit in
-                                Text(habit.name)
-                                    .tag(habit as Habit?)
-                            }
-                        }
-                        Spacer()
-                    }
-                    .padding()
-//                    }.toolbar {
-//                        NavigationLink {
-//                            AddHabitsView()
-//                        } label: {
-//                            Image(systemName: "plus.circle.fill")
-//                                .foregroundStyle(.mediumYellow)
-//                        }
-//                        NavigationLink {
-//                            EditHabitsView()
-//                        } label: {
-//                            Image(systemName: "list.bullet.circle.fill")
-//                                .foregroundStyle(.mediumYellow)
-//                        }
-//                    }
-                    VStack {
-                        HStack {
-                            Picker("", selection: $selectedMonth) {
-                                ForEach(months.indices, id: \.self) { index in
-                                    Text(months[index])
-                                        .tag(index + 1)
-                                        .font(.largeTitle)
-                                }
-                            }
-                        }
-                        VStack {
-                            Text(months[selectedMonth - 1])
-                                .font(.title)
-                                .fontWeight(.bold)
-                        }
-                        
-                        HStack{
-                            ForEach(weekdays, id: \.self) { weekday in
-                                Text(weekday)
-                                    .frame(maxWidth: .infinity)
-                            }
-                        }
-                        LazyVGrid(columns: columns) {
-                            ForEach(days, id: \.self) {day in
-                                if day.monthInt != date.monthInt {
-                                    Text("")
-                                } else {
-                                    Text(day.formatted(.dateTime.day()))
-                                        .frame(maxWidth: .infinity, minHeight: 70)
-                                        .background {
-                                            NavigationLink {
-                                                TodayView()
-                                            } label: {
-                                                Hexagon()
-                                                    .foregroundStyle(color)
-                                                    .shadow(radius: 2)
-                                            }
+                    titleAndPicker
+                    monthPicker
+                    monthText
+                    daysOfWeek
+                    LazyVGrid(columns: columns) {
+                        ForEach(days, id: \.self) {day in
+                            if day.monthInt != date.monthInt {
+                                Text("")
+                            } else {
+                                Text(day.formatted(.dateTime.day()))
+                                    .frame(maxWidth: .infinity, minHeight: 65)
+                                    .background {
+                                        NavigationLink {
+                                            TodayView()
+                                        } label: {
+                                            Hexagon()
+                                                .foregroundStyle(color)
+                                                .shadow(radius: 2)
                                         }
-                                }
+                                    }
                             }
                         }
-                        .onAppear {
-                            days = date.calendarDisplayDays
-                        }
-                        .onChange(of: date) {
-                            days = date.calendarDisplayDays
-                        }
-                        .onChange (of: selectedMonth) {
-                            updateDate()
-                        }
                     }
-                    .padding()
                     Spacer()
+                    .onAppear {
+                        days = date.calendarDisplayDays
+                    }
+                    .onChange(of: date) {
+                        days = date.calendarDisplayDays
+                    }
+                    .onChange (of: selectedMonth) {
+                        updateDate()
+                    }
                 }
+                .padding()
             }
         }
     }
@@ -126,7 +79,7 @@ struct AllHabitsView: View {
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .font(.largeTitle)
-                    .frame(height: 20)
+                    .frame(height: 5)
                     .foregroundStyle(.mediumYellow)
             }
             NavigationLink {
@@ -134,11 +87,56 @@ struct AllHabitsView: View {
             } label: {
                 Image(systemName: "list.bullet.circle.fill")
                     .font(.largeTitle)
-                    .frame(height: 20)
+                    .frame(height: 5)
                     .foregroundStyle(.mediumYellow)
             }
         }
         .padding()
+    }
+    
+    var titleAndPicker: some View {
+        HStack {
+            Text("All Habits")
+                .font(.largeTitle)
+                .fontWeight(.black)
+            Picker("", selection: $selectedHabit) {
+                Text("All").tag(nil as Habit?)
+                ForEach(habit) { habit in
+                    Text(habit.name)
+                        .tag(habit as Habit?)
+                }
+            }
+            Spacer()
+        }
+    }
+    
+    var monthPicker: some View {
+        VStack {
+            Picker("", selection: $selectedMonth) {
+                ForEach(months.indices, id: \.self) { index in
+                    Text(months[index])
+                        .font(.largeTitle)
+                        .tag(index + 1)
+                }
+            }
+        }
+    }
+    
+    var monthText: some View {
+        VStack {
+            Text(months[selectedMonth - 1])
+                .font(.title)
+                .fontWeight(.bold)
+        }
+    }
+    
+    var daysOfWeek: some View {
+        HStack {
+            ForEach(weekdays, id: \.self) { weekday in
+                Text(weekday)
+                    .frame(maxWidth: .infinity)
+            }
+        }
     }
 }
 
