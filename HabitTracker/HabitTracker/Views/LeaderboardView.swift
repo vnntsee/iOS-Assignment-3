@@ -36,6 +36,9 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .fontWeight(.bold)
         }
+        .onAppear {
+            updateRanking()
+        }
         
     }
     

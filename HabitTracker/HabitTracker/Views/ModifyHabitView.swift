@@ -169,9 +169,10 @@ struct ModifyHabitView: View {
     }
     func 
     editHabit() {
-        let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, isCompleted: false)
-        
         guard indexIsValid() else {return}
+        
+        let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex].dateCreated, isCompleted: false)
+        
         usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex] = modifiedHabit
         
         // show habit updated alert

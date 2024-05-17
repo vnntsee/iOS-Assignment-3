@@ -15,10 +15,11 @@ struct TodayView: View {
     @Environment(\.modelContext) var modelContext
     
     //DELETE
-    @State var sampleHabits: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2), Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3)]
+    //@State var sampleHabits: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2), Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3)]
     
     @ObservedObject var habitsVM = TodayHabitsViewModel()
     @ObservedObject var usersVM = UsersViewModel()
+//    @State var today = Calendar.current.component(.weekday, from: Date())
   
     var body: some View {
         ZStack {
@@ -38,6 +39,9 @@ struct TodayView: View {
                 }
             }
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
+        }
+        .onAppear {
+            habitsVM.getTodayHabits(habits: usersVM.getUser(users: users).habits)
         }
     }
     
@@ -85,7 +89,7 @@ struct TodayView: View {
     }
     
     var habitsList: some View {
-        ForEach(sampleHabits, id: \.id) { habit in
+        ForEach(habitsVM.todayHabits, id: \.id) { habit in
             HStack {
                 habitBox
                     .foregroundColor(habit.isCompleted ? Color(UIColor(named: "MediumYellow") ?? UIColor(Color.yellow)) : .white)
