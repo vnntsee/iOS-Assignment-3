@@ -19,7 +19,7 @@ struct TodayView: View {
     
     @ObservedObject var habitsVM = TodayHabitsViewModel()
     @ObservedObject var usersVM = UsersViewModel()
-  
+    
     var body: some View {
         ZStack {
             Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
@@ -94,7 +94,7 @@ struct TodayView: View {
                         habit.isCompleted.toggle()
                         habitsVM.updateHabitsCompleted(habit: habit)
                         habitsVM.updateHabitsColour()
-                        usersVM.getUser(users: users).points += habitsVM.pointsUpdateAmount(habit: habit)
+                       // usersVM.getUser(users: users).points += habitsVM.pointsUpdateAmount(habit: habit)
                     }
                     .padding(.horizontal)
                 Text(habit.name)
