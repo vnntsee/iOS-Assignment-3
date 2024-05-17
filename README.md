@@ -8,6 +8,9 @@
  HexGrid Package from https://github.com/ksemianov/HexGrid 
  Make sure to download and add them to the project as we are using this package to adapt the Hexagon shape in our app.
  
+ ## Executing Program
+ Make sure to run the program from the simulator as SwiftDate will not save any data through Canvas
+ 
  ## Help
  If there is an error e.g. HomeView() is not found or Habit is not found, make sure to open or load all the files first.
  
