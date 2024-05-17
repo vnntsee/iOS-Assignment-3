@@ -14,12 +14,16 @@ struct TodayView: View {
     @Query var users: [User]
     @Environment(\.modelContext) var modelContext
     
-    //DELETE
+    @State var totalTodayHabits: Int = 4
+    @State var numHabitsCompleted: Int = 0
+    @State var completionOpacity: Double = 1
+    
     @State var sampleHabits: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2), Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3)]
     
     @ObservedObject var habitsVM = TodayHabitsViewModel()
     @ObservedObject var usersVM = UsersViewModel()
-  
+    @State var points: Int = 0
+    
     var body: some View {
         ZStack {
             // Background color with pastel yellow
@@ -59,7 +63,7 @@ struct TodayView: View {
                 Hexagon()
                     .fill(Color.white)
                     .frame(width: 350, height: 150)
-                    .opacity(habitsVM.completionOpacity)
+                    .opacity(completionOpacity)
             }
             .padding()
         
@@ -93,8 +97,8 @@ struct TodayView: View {
                     .onTapGesture {
                         //Updates habit status and progress box colour based on it.
                         habit.isCompleted.toggle()
-                        habitsVM.updateHabitsCompleted(habit: habit)
-                        habitsVM.updateHabitsColour()
+                        updateHabitsCompleted(habit: habit)
+                        updateHabitsColour()
                         usersVM.getUser(users: users).points += habitsVM.pointsUpdateAmount(habit: habit)
                     }
                     .padding(.horizontal)
@@ -119,6 +123,20 @@ struct TodayView: View {
                     .fontWeight(.bold)
             }
             .padding(.horizontal)
+        }
+    }
+    
+    //Decreases opacity by the ratio of the number of habits completed to the total.
+    func updateHabitsColour() {
+        completionOpacity = 1 - (Double(numHabitsCompleted) / Double(totalTodayHabits))
+    }
+
+    func updateHabitsCompleted(habit: Habit) {
+        if habit.isCompleted {
+            numHabitsCompleted += 1
+        }
+        else {
+            numHabitsCompleted -= 1
         }
     }
     

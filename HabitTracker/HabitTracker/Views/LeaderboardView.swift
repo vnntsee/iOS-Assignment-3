@@ -21,11 +21,6 @@ struct LeaderboardView: View {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all) // Ensures the color covers the entire screen
             VStack {
-                Button("Add Sample User", action: addSampleUsers) //REMOVE
-                Button("Delete Users", action: removeUsers) //REMOVE
-                Button("Increase John's Score", action: increaseUserScore) //REMOVE
-                Button("Decrease John's Score", action: decreaseUserScore) //REMOVE
-                Button("Update ranking", action: updateRanking) //REMOVE
                 leaderboardTitle
                 currentUserRanking
                 Spacer()
@@ -37,52 +32,15 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .fontWeight(.bold)
         }
-        
-    }
-    
-    //__________TESTING DATABASE_____________//
-    
-    //REMOVE
-    func addSampleUsers() {
-        let user1 = User(name: "Jane", points: 5000, ranking: 0)
-        let user2 = User(name: "John", points: 4300, ranking: 0)
-        let user3 = User(name: "Jack", points: 1504, ranking: 0)
-        modelContext.insert(user1)
-        modelContext.insert(user2)
-        modelContext.insert(user3)
-    }
-    
-    //REMOVE
-    func removeUsers() {
-        for user in users {
-            modelContext.delete(user)
+        .onAppear {
+            updateRanking()
         }
     }
     
-    //REMOVE
-    func increaseUserScore() {
-        for user in users {
-            if user.name == "John" {
-                user.points += 1000
-            }
-        }
-    }
-    
-    //REMOVE
-    func decreaseUserScore() {
-        for user in users {
-            if user.name == "John" {
-                user.points -= 1000
-            }
-        }
-    }
-    
-    //REMOVE
     func updateRanking() {
         usersVM.updateUsersRanking(users: users)
     }
     
-    //_______________________________________//
     
     var leaderboardTitle: some View {
         Text("Leaderboard")
