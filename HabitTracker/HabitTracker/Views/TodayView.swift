@@ -68,7 +68,7 @@ struct TodayView: View {
                 Hexagon()
                     .fill(Color.white)
                     .frame(width: 350, height: 150)
-                    .opacity(completionOpacity)
+                    .opacity(habitsVM.completionOpacity)
             }
             .padding()
         
@@ -138,16 +138,16 @@ struct TodayView: View {
     // Update the opacity of progress box based on completed habits
     //Decreases opacity by the ratio of the number of habits completed to the total.
     func updateHabitsColour() {
-        completionOpacity = 1 - (Double(numHabitsCompleted) / Double(totalTodayHabits))
+        habitsVM.completionOpacity = 1 - (Double(habitsVM.numHabitsCompleted) / Double(habitsVM.totalTodayHabits))
     }
 
     // Update the number of completed habits
     func updateHabitsCompleted(habit: Habit) {
         if habit.isCompleted {
-            numHabitsCompleted += 1
+            habitsVM.numHabitsCompleted += 1
         }
         else {
-            numHabitsCompleted -= 1
+            habitsVM.numHabitsCompleted -= 1
         }
     }
     
