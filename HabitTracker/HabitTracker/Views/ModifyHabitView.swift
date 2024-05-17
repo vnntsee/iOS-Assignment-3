@@ -80,6 +80,7 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 
+                // lists the weekdays where the user selects the days they want to add/remove
                 List {
                     ForEach(weekdays, id: \.self) { weekday in
                         Button(action: {
@@ -110,7 +111,7 @@ struct ModifyHabitView: View {
                 .padding()
                 .fontDesign(.monospaced)
                 
-                /*
+                /* old code used for presentation.
                 List(days, id: \.self) { day in
                     Button(action: {
                         if daysSelected.contains(day) {
@@ -153,7 +154,7 @@ struct ModifyHabitView: View {
                         .bold()
                         .padding(.horizontal)
                     })
-                
+                // let's the user know that the habit has been updated or deleted.
                 .alert(isPresented: $habitUpdatedAlert) {
                     Alert(title: Text(isDeleted ? "Habit Deleted!" : "Habit Updated!"), message: Text(isDeleted ? "The habit has been deleted!" : "The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
                 }

@@ -43,7 +43,7 @@ struct EditHabitsView: View {
                         .background(.regularMaterial)
                         .cornerRadius(30)
                     
-                    
+                    // lists the habits the user has made and filters it by what the user has typed in the search bar
                     List {
                         ForEach(usersVM.getUser(users: users).habits.sorted(by: {$0.dateCreated < $1.dateCreated}).indices, id: \.self) { index in
                             let habit = usersVM.getUser(users: users).habits[index]
@@ -71,6 +71,7 @@ struct EditHabitsView: View {
                             ModifyHabitView(editHabitsVM: editHabitsVM)
                         })
                     }
+                    //edits the look of the list
                     .navigationBarBackButtonHidden(true)
                     .font(.system(size: 20))
                     .fontDesign(.monospaced)
@@ -80,7 +81,7 @@ struct EditHabitsView: View {
 
                     
                     
-//                    
+//                    Code below used MVVM for the presentation.
 //                    List {
 //                        ForEach(editHabitsVM.filterHabits(by: searchHabit)) { habit in NavigationLink(destination: ModifyHabitView(editHabitsVM: editHabitsVM)) {
 //                            VStack(alignment: .leading) {
