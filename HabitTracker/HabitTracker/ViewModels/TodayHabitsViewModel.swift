@@ -26,4 +26,21 @@ class TodayHabitsViewModel: ObservableObject {
             numHabitsCompleted -= 1
         }
     }
+    
+    func pointsUpdateAmount(habit: Habit) -> Int {
+        var updateAmount: Int = 0
+        if habit.priority == 1 {
+            updateAmount = 10
+        }
+        else if habit.priority == 2 {
+            updateAmount = 15
+        }
+        else if habit.priority == 3 {
+            updateAmount = 20
+        }
+        if habit.isCompleted {
+            return updateAmount
+        }
+        return -updateAmount
+    }
 }

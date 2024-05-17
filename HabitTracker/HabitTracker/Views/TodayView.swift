@@ -11,6 +11,9 @@ import HexGrid
 
 struct TodayView: View {
     
+    @Query var users: [User]
+    @Environment(\.modelContext) var modelContext
+    
     //DELETE
     @State var sampleHabits: [Habit] = [Habit(name: "Exercise for 30 mins", daysToComplete: ["Fri","Sat"], priority: 2), Habit(name: "Study for 2 hours", daysToComplete: ["Mon","Tue"], priority: 1), Habit(name: "Eat 3 fruits", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 2), Habit(name: "Practice French", daysToComplete: ["Mon","Tue","Wed","Thur","Fri","Sat","Sun"], priority: 3)]
     
@@ -22,7 +25,10 @@ struct TodayView: View {
             Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all)
             VStack {
-                todayTitle
+                ZStack {
+                    score
+                    todayTitle
+                }
                 Spacer()
                 progressBox
                 habitsListTitle
@@ -88,6 +94,7 @@ struct TodayView: View {
                         habit.isCompleted.toggle()
                         habitsVM.updateHabitsCompleted(habit: habit)
                         habitsVM.updateHabitsColour()
+                        usersVM.getUser(users: users).points += habitsVM.pointsUpdateAmount(habit: habit)
                     }
                     .padding(.horizontal)
                 Text(habit.name)
@@ -97,6 +104,20 @@ struct TodayView: View {
                     .padding(.horizontal, 45)
                     .fontWeight(.bold)
             }
+        }
+    }
+    
+    var score: some View {
+        HStack {
+            Spacer()
+            ZStack {
+                habitBox
+                    .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.yellow)))
+                Text("\(usersVM.getUser(users: users).points)")
+                    .foregroundStyle(Color.white)
+                    .fontWeight(.bold)
+            }
+            .padding(.horizontal)
         }
     }
     
