@@ -11,9 +11,13 @@ import SwiftData
 struct ProfileView: View {
     // State variable for toggling dark mode
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    // Query property used to access all user records in the database, sorted by points in reverse order
     @Query(sort: [SortDescriptor(\User.points, order: .reverse)]) var users: [User]
+    // Environment property for accessing the model context
     @Environment(\.modelContext) var modelContext
+    // ObservedObject for managing users' data
     @ObservedObject var usersVM = UsersViewModel()
+    // State variable for tracking if the user is logged out
     @State var loggedOut = false
     
     var body: some View {
@@ -43,7 +47,9 @@ struct ProfileView: View {
                             Text("Dark Mode")
                         })
                     }
+                    // Logout button
                     logOutButton
+                    // Delete account button
                     deleteAccountButton
                 }
                 .font(.title3)
@@ -60,6 +66,7 @@ struct ProfileView: View {
         }
     }
     
+    // Logout button
     var logOutButton: some View {
         Button {
             usersVM.logout()
@@ -75,6 +82,7 @@ struct ProfileView: View {
         }
     }
     
+    // Delete account button
     var deleteAccountButton: some View {
         Button {
             deleteUser()
@@ -91,9 +99,11 @@ struct ProfileView: View {
         }
     }
     
+    // Function to delete the user account
     func deleteUser() {
         for user in users {
             if user.name == usersVM.currUserStr {
+                // delete the user from the modelContext
                 modelContext.delete(user)
                 break
             }

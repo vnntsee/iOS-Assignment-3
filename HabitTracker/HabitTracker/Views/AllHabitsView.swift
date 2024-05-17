@@ -59,11 +59,11 @@ struct AllHabitsView: View {
                             // Set initial days for the calendar
                             days = date.calendarDisplayDays
                         }
-                        // Update days when date changes
+                    // Update days when date changes
                         .onChange(of: date) {
                             days = date.calendarDisplayDays
                         }
-                        // Update date when selected month changes
+                    // Update date when selected month changes
                         .onChange (of: selectedMonth) {
                             updateDate()
                         }

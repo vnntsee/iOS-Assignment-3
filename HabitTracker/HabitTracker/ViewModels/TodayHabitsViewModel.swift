@@ -17,7 +17,7 @@ class TodayHabitsViewModel: ObservableObject {
     func updateHabitsColour() {
         completionOpacity = 1 - (Double(numHabitsCompleted) / Double(totalTodayHabits))
     }
-
+    
     // Updates the number of completed habits.
     func updateHabitsCompleted(habit: Habit) {
         if habit.isCompleted {
