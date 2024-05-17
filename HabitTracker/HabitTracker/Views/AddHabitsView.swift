@@ -43,12 +43,14 @@ struct AddHabitsView: View {
                     .foregroundStyle(.orange)
                     .bold()
                     .padding(20)
+                
                 // Section for entering habit name
                 Text("Enter the name of your habit:")
                     .font(.title3)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
+                
                 // TextField for entering habit name
                 TextField("e.g. drink water once every hour.", text: $newHabitName)
                     .padding()
@@ -112,7 +114,7 @@ struct AddHabitsView: View {
                 .padding()
                 .fontDesign(.monospaced)
                 
-                /*
+                /* old code used for presentation.
                  { day in
                  Button(action: {
                  if daysSelected.contains(day) {

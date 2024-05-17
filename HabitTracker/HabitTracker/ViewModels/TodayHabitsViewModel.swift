@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TodayHabitsViewModel: ObservableObject {
     //SAMPLE
     @Published var totalTodayHabits: Int = 4
     @Published var numHabitsCompleted: Int = 0
     @Published var completionOpacity: Double = 1
+    
+    //@AppStorage("numHabitsCompleted") var numHabitsCompleted: Int = 0
     
     //Decreases opacity by the ratio of the number of habits completed to the total.
     func updateHabitsColour() {

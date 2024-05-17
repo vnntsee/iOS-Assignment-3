@@ -43,12 +43,14 @@ struct ModifyHabitView: View {
                     .foregroundStyle(.orange)
                     .bold()
                     .padding(20)
+                
                 // Section for updating habit name
                 Text("Update the name of your habit:")
                     .font(.title3)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
+                
                 // TextField for entering updated habit name
                 TextField("\(getHabitName())", text: $updatedHabitName)
                     .padding()
@@ -57,6 +59,7 @@ struct ModifyHabitView: View {
                     .cornerRadius(15)
                     .padding(.horizontal)
                     .padding(.bottom)
+                
                 // Section for updating habit priority
                 Text("Update your habit's priority:")
                     .font(.title3)
@@ -113,7 +116,7 @@ struct ModifyHabitView: View {
                 .padding()
                 .fontDesign(.monospaced)
                 
-                /*
+                /* old code used for presentation.
                 List(days, id: \.self) { day in
                     Button(action: {
                         if daysSelected.contains(day) {
