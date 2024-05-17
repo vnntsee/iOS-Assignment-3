@@ -10,11 +10,11 @@ import SwiftData
 
 @Model //facilitates persistent storage
 class User: Identifiable {
-    var name: String
-    var password: String
-    var points: Int
-    var ranking: Int
-    var longestStreak: Int
+    var name: String // Name of the user
+    var password: String // The user's password
+    var points: Int // Total points earned by the user
+    var ranking: Int // Ranking position of the user
+    var longestStreak: Int // Longest streak of completed habits by the user
     //@Relationship with cascade delete rule allows for all habits associated with a user to be deleted when they are.
     @Relationship(deleteRule: .cascade) var habits = [Habit]() //Calls default initialiser.
     

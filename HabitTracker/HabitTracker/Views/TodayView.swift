@@ -22,8 +22,9 @@ struct TodayView: View {
   
     var body: some View {
         ZStack {
+            // Background color with pastel yellow
             Color(UIColor(named: "PastelYellowBackground") ?? UIColor(Color.yellow.opacity(0.4)))
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea(.all) // Ensures the color covers the entire screen
             VStack {
                 ZStack {
                     score
@@ -126,12 +127,16 @@ struct TodayView: View {
 #Preview {
     //Stores temporary data for preview.
     do {
+        // Configuration for in-memory storage
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        // Creating a model container
         let container = try ModelContainer(for: User.self, configurations: config)
         //Adding Habit model to container isn't necessary since it's linked to User through @Relationship.
         
+        // Attaches the model container to the view
         return TodayView()
             .modelContainer(container)
+        // Handles any errors in creating the model container
     } catch {
         fatalError("Failed to create model container.")
     }

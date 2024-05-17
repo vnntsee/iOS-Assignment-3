@@ -17,8 +17,9 @@ struct LeaderboardView: View {
     var body: some View {
         
         ZStack {
+            // Background color with light yellow
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea(.all) // Ensures the color covers the entire screen
             VStack {
                 Button("Add Sample User", action: addSampleUsers) //REMOVE
                 Button("Delete Users", action: removeUsers) //REMOVE
@@ -153,11 +154,14 @@ struct LeaderboardView: View {
 #Preview {
     //Stores temporary data and SwiftData configuration for preview.
     do {
+        // Configuration for in-memory storage
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        // Creating a model container
         let container = try ModelContainer(for: User.self, configurations: config)
-        
+        // Attaches the model container to the view
         return LeaderboardView()
             .modelContainer(container)
+        // Handles any errors in creating the model container
     } catch {
         fatalError("Failed to create model container.")
     }

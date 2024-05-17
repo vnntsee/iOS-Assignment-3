@@ -18,6 +18,7 @@ class TodayHabitsViewModel: ObservableObject {
         completionOpacity = 1 - (Double(numHabitsCompleted) / Double(totalTodayHabits))
     }
 
+    // Updates the number of completed habits.
     func updateHabitsCompleted(habit: Habit) {
         if habit.isCompleted {
             numHabitsCompleted += 1
@@ -27,6 +28,7 @@ class TodayHabitsViewModel: ObservableObject {
         }
     }
     
+    // Calculates the points update amount based on habit priority and completion status.
     func pointsUpdateAmount(habit: Habit) -> Int {
         var updateAmount: Int = 0
         if habit.priority == 1 {

@@ -15,15 +15,17 @@ struct LogoView: View {
         ZStack {
             // Background color with light yellow
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea(.all) // Ensures the color covers the entire screen
+            
             // Logo image centered vertically
             VStack {
-                Image("Logo")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+                Image("Logo") // Displays the logo image
+                    .imageScale(.large) // Sets the image scale to large
+                    .foregroundStyle(.tint) // Applies a tint style to the image
             }
             // Trigger navigation after 2 seconds
             .onAppear {
+                // Sets navigateToHome to true after 2 seconds
                 Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                     navigateToHome = true
                 }
@@ -31,7 +33,7 @@ struct LogoView: View {
         }
         // Navigate to home view when state variable becomes true
         .fullScreenCover(isPresented: $navigateToHome) {
-                HomeView()
+            HomeView()
         }
     }
 }
@@ -39,11 +41,14 @@ struct LogoView: View {
 #Preview {
     //Stores temporary data for preview.
     do {
+        // Configuration for in-memory storage
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        // Creating a model container
         let container = try ModelContainer(for: User.self, configurations: config)
-        
+        // Attaches the model container to the view
         return LogoView()
             .modelContainer(container)
+        // Handles any errors in creating the model container
     } catch {
         fatalError("Failed to create model container.")
     }

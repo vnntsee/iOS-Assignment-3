@@ -46,6 +46,7 @@ class UsersViewModel: ObservableObject {
         return User(name: "Default")
     }
     
+    // Logging out function, set everything to default
     func logout() {
         username = ""
         password = ""

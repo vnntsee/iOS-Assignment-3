@@ -14,17 +14,19 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
+            // Background color with light yellow
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
-                .ignoresSafeArea(.all)
+                .ignoresSafeArea(.all) // Ensures the color covers the entire screen
+            
             VStack {
-                loginTitle
+                loginTitle // Title of the login view
                 Spacer()
-                habitTrackerLogo
+                habitTrackerLogo // Habit Tracker logo
                 Spacer()
-                usernameField
-                passwordField
-                incorrectDetailsView
-                loginButton
+                usernameField // Username input fields
+                passwordField // Password input fields
+                incorrectDetailsView // View for displaying incorrect login details
+                loginButton // Login button
             }
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .padding(.horizontal)
@@ -35,6 +37,7 @@ struct LoginView: View {
         }
     }
     
+    // Title of the login view
     var loginTitle: some View {
         Text("Log In")
             .font(.title)
@@ -42,6 +45,7 @@ struct LoginView: View {
             .padding()
     }
     
+    // Logo of the Habit Tracker app
     var habitTrackerLogo: some View {
         Image("Logo")
             .resizable()
@@ -51,6 +55,7 @@ struct LoginView: View {
             .shadow(radius: 5)
     }
     
+    // Username input field
     var usernameField: some View {
         VStack {
             Text("Enter your username")
@@ -63,6 +68,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .shadow(radius: 5)
         }
+        // Dismiss incorrect details view when tapping on the field
         .onTapGesture {
             withAnimation {
                 usersVM.incorrectDetails = false
@@ -82,6 +88,7 @@ struct LoginView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .shadow(radius: 5)
         }
+        // Dismiss incorrect details view when tapping on the field
         .onTapGesture {
             withAnimation {
                 usersVM.incorrectDetails = false
@@ -89,8 +96,10 @@ struct LoginView: View {
         }
     }
     
+    // Login button
     var loginButton: some View {
         Button {
+            // Validate user credentials when the login button is tapped
             usersVM.validateCredentials(users: users)
         } label: {
             Text("Log In!")
@@ -106,6 +115,7 @@ struct LoginView: View {
         }
     }
     
+    // View for displaying incorrect login details
     var incorrectDetailsView: some View {
         HStack {
             Image(systemName: "multiply.circle.fill")
@@ -136,11 +146,14 @@ struct LoginView: View {
 #Preview {
     //Stores temporary data for preview.
     do {
+        // Configuration for in-memory storage
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        // Creating a model container
         let container = try ModelContainer(for: User.self, configurations: config)
-        
+        // Attaches the model container to the view
         return LoginView()
             .modelContainer(container)
+        // Handles any errors in creating the model container
     } catch {
         fatalError("Failed to create model container.")
     }
