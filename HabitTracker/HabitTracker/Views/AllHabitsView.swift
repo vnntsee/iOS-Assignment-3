@@ -18,9 +18,11 @@ struct AllHabitsView: View {
     let months = Date.months
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     @Query private var habits: [Habit]
+    @Query var users: [User]
     @Query(sort: \Habit.name) private var habit: [Habit]
     @State private var selectedHabit: Habit?
     @ObservedObject var allHabitsVM = AllHabitsViewModel()
+    //@ObservedObject var todayHabitsVM = TodayHabitsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -42,7 +44,7 @@ struct AllHabitsView: View {
                                     .frame(maxWidth: .infinity, minHeight: 65)
                                     .background {
                                         NavigationLink {
-                                            TodayView()
+                                            TodayView(habitsVM: TodayHabitsViewModel())
                                         } label: {
                                             Hexagon()
                                                 .foregroundStyle(color)
