@@ -48,7 +48,7 @@ struct ModifyHabitView: View {
                     .padding(.horizontal)
                 
                 // where the user enters the name of the habit they want to add
-                TextField("\(editHabitsVM.habitToModifyIndex)", text: $updatedHabitName)
+                TextField("\(getHabitName())", text: $updatedHabitName)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: 55)
                     .background(.regularMaterial)
@@ -62,7 +62,6 @@ struct ModifyHabitView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     .padding(.top)
-                
                 
                 // a picker that allows the user to choose the habit's priority level, 1 = low, 3 = high
                 Picker(selection: $newPriority, label: Text("Picker")) {
@@ -158,30 +157,38 @@ struct ModifyHabitView: View {
                 .alert(isPresented: $habitUpdatedAlert) {
                     Alert(title: Text(isDeleted ? "Habit Deleted!" : "Habit Updated!"), message: Text(isDeleted ? "The habit has been deleted!" : "The habit has been successfully updated."), dismissButton: .default(Text("OK!")))
                 }
-//                .alert(isPresented: $habitDeletedAlert) {
-//                    Alert(title: Text("Habit Deleted!"), message: Text("The habit has been successfully deleted."))
-//                }
             }
         }
     }
-    func editHabit() {
+    
+    func indexIsValid() -> Bool {
+        if editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count {
+            return true
+        }
+        return false
+    }
+    func 
+    editHabit() {
         let modifiedHabit = Habit(name: updatedHabitName, daysToComplete: Array(daysSelected), priority: newPriority, isCompleted: false)
         
-        guard editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count else { return }
-        
+        guard indexIsValid() else {return}
         usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex] = modifiedHabit
-        
         
         // show habit updated alert
         habitUpdatedAlert = true
     }
     
     func deleteHabit() {
-        guard editHabitsVM.habitToModifyIndex >= 0 && editHabitsVM.habitToModifyIndex < usersVM.getUser(users: users).habits.count else { return }
+        guard indexIsValid() else {return}
         
         usersVM.getUser(users: users).habits.remove(at: editHabitsVM.habitToModifyIndex)
         isDeleted = true
         habitUpdatedAlert = true
+    }
+    
+    func getHabitName() -> String {
+        guard indexIsValid() else {return ""}
+        return usersVM.getUser(users: users).habits[editHabitsVM.habitToModifyIndex].name
     }
     
 }

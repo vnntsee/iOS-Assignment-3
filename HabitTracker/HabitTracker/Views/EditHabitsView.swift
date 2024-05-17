@@ -28,11 +28,13 @@ struct EditHabitsView: View {
                 Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                     .ignoresSafeArea(.all)
                 VStack {
-                    homeButton
-                    Text("Habits")
-                        .font(.largeTitle)
-                        .foregroundStyle(.orange)
-                        .bold()
+                    ZStack {
+                        homeButton
+                        Text("Habits")
+                            .font(.largeTitle)
+                            .foregroundStyle(.orange)
+                            .bold()
+                    }
                     // Filters the habits the user wants to look for.
                     TextField("Search...", text: $searchHabit)
                         .padding()
@@ -117,9 +119,18 @@ struct EditHabitsView: View {
         }
     
     var homeButton: some View {
-        NavigationLink(destination: TabBarView(), label: {
-            Text("Home")
-        })
+        HStack {
+            Spacer()
+            NavigationLink {
+                TabBarView()
+            } label: {
+                Image(systemName: "house.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50)
+                    .foregroundStyle(.earthYellow)
+            }
+        }
     }
 //    }
 }

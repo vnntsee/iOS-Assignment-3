@@ -163,15 +163,14 @@ struct AddHabitsView: View {
                         Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                     }
                 }
-                
             }
         }
     }
+    
     func addHabit() {
         let newHabit = Habit(name: newHabitName, daysToComplete: Array(daysSelected), priority: newPriority, dateCreated: .now, isCompleted: false)
         
         //editHabitsVM.addHabit(newHabit)
-        
         //modelContext.insert(newHabit)
         
         usersVM.getUser(users: users).habits.append(newHabit)
