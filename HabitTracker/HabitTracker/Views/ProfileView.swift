@@ -53,6 +53,7 @@ struct ProfileView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .navigationDestination(isPresented: $loggedOut, destination: {
                 HomeView()
+                    .navigationBarBackButtonHidden(true)
             })
             .padding(40)
             // Change the colorScheme based on isDarkMode state variable
