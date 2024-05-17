@@ -9,9 +9,11 @@ import SwiftData
 import SwiftUI
 
 struct LeaderboardView: View {
+    // Query to fetch users sorted by points in reverse order
     @Query(sort: [SortDescriptor(\User.points, order: .reverse)]) var users: [User]
     //modelContext tracks all objects and CRUD operations related to them, allowing for them to be saved to the modelContainer(defined in App struct) later on.
     @Environment(\.modelContext) var modelContext
+    // Creating an observed object of UsersViewModel
     @ObservedObject var usersVM: UsersViewModel = UsersViewModel()
     
     var body: some View {
@@ -21,9 +23,10 @@ struct LeaderboardView: View {
             Color(UIColor(named: "LightYellow") ?? UIColor(Color.yellow.opacity(0.4)))
                 .ignoresSafeArea(.all) // Ensures the color covers the entire screen
             VStack {
-                leaderboardTitle
-                currentUserRanking
+                leaderboardTitle // Displaying the leaderboard title
+                currentUserRanking // Displaying the current user's ranking
                 Spacer()
+                // ScrollView for displaying user ranking rows
                 ScrollView {
                     userRankingRows
                 }
@@ -32,22 +35,26 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "DarkBrown") ?? UIColor(Color.black)))
             .fontWeight(.bold)
         }
+        // Updating user rankings when the view appears
         .onAppear {
             updateRanking()
         }
     }
     
+    // Function to update user rankings
     func updateRanking() {
+        // Calling a method to update user rankings in the view model
         usersVM.updateUsersRanking(users: users)
     }
     
-    
+    // View for displaying the leaderboard title
     var leaderboardTitle: some View {
         Text("Leaderboard")
             .font(.title)
             .fontWeight(.bold)
     }
     
+    // View for displaying the ranking star image
     var rankingStar: some View {
         Image(systemName: "star.fill")
             .resizable()
@@ -55,6 +62,7 @@ struct LeaderboardView: View {
             .foregroundStyle(Color(UIColor(named: "PastelYellow") ?? UIColor(Color.white)))
     }
     
+    // View for displaying the default profile image
     var profileImage: some View {
         Image("DefaultProfile")
             .resizable()
@@ -62,6 +70,7 @@ struct LeaderboardView: View {
             .padding(5)
     }
     
+    // View for displaying the current user's ranking
     var currentUserRanking: some View {
         HStack {
             ZStack {
@@ -69,15 +78,18 @@ struct LeaderboardView: View {
                     .resizable()
                     .frame(width: 90, height: 90)
                     .foregroundStyle(Color(UIColor(named: "MediumYellow") ?? UIColor(Color.white)))
+                // Text displaying the current user's ranking
                 Text("\(usersVM.getUser(users: users).ranking)")
             }
             Spacer()
             VStack {
                 profileImage
                     .frame(width: 120)
+                // Displaying the current user's name
                 Text("\(usersVM.getUser(users: users).name)")
             }
             Spacer()
+            // Displaying the current user's points
             Text("\(usersVM.getUser(users: users).points)")
                 .frame(minWidth: 90)
         }
@@ -87,18 +99,24 @@ struct LeaderboardView: View {
         .frame(maxWidth: .infinity)
     }
     
+    // View for displaying user ranking rows
     var userRankingRows: some View {
+        // Looping through users
         ForEach(users) { user in
             HStack {
                 ZStack {
+                    // Displaying the ranking star
                     rankingStar
+                    // Displaying the user's ranking
                     Text("\(user.ranking)")
                         .font(.title2)
                 }
-                
+                // Displaying the profile image
                 profileImage
+                // Displaying the user's name
                 Text(user.name)
                 Spacer()
+                // Displaying the user's points
                 Text("\(user.points)")
             }
             .padding(.horizontal)

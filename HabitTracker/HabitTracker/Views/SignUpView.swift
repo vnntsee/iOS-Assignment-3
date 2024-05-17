@@ -90,6 +90,7 @@ struct SignUpView: View {
                 .shadow(radius: 5)
         }
         .onTapGesture {
+            //Removes incorrect details message from view when password field is selected
             withAnimation {
                 signUpVM.incorrectDetails = false
             }
